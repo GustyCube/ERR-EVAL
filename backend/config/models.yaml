@@ -1,0 +1,353 @@
+# MIRAGE Model Configuration
+# Edit this file to customize which models are evaluated in benchmark runs.
+# Models are grouped by provider/company for organization.
+
+# Default judge model (uses structured outputs for scoring)
+judge:
+  model_id: "openai/gpt-4.1"
+  temperature: 0.0
+  max_tokens: 1024
+
+# Default inference settings for candidate models
+defaults:
+  temperature: 0.0
+  max_tokens: 2048
+  timeout_seconds: 120
+
+# Model providers and their models
+# Set 'enabled: true' to include in evaluation runs
+# Set 'enabled: false' to skip
+
+providers:
+  # ============================================================================
+  # OpenAI
+  # ============================================================================
+  openai:
+    name: "OpenAI"
+    models:
+      - id: "openai/gpt-4.1"
+        name: "GPT-4.1"
+        enabled: true
+        notes: "Latest GPT-4 series model"
+        
+      - id: "openai/gpt-4.1-mini"
+        name: "GPT-4.1 Mini"
+        enabled: true
+        notes: "Smaller, faster GPT-4.1"
+        
+      - id: "openai/gpt-4.1-nano"
+        name: "GPT-4.1 Nano"
+        enabled: true
+        notes: "Smallest GPT-4.1 variant"
+        
+      - id: "openai/gpt-4o"
+        name: "GPT-4o"
+        enabled: true
+        notes: "Multimodal GPT-4"
+        
+      - id: "openai/gpt-4o-mini"
+        name: "GPT-4o Mini"
+        enabled: true
+        notes: "Smaller GPT-4o"
+        
+      - id: "openai/o1"
+        name: "o1"
+        enabled: true
+        notes: "Reasoning-focused model"
+        
+      - id: "openai/o1-mini"
+        name: "o1 Mini"
+        enabled: true
+        notes: "Smaller o1"
+        
+      - id: "openai/o1-pro"
+        name: "o1 Pro"
+        enabled: true
+        notes: "Enhanced o1"
+        
+      - id: "openai/o3"
+        name: "o3"
+        enabled: true
+        notes: "Next-gen reasoning model"
+        
+      - id: "openai/o3-mini"
+        name: "o3 Mini"
+        enabled: true
+        notes: "Smaller o3"
+        
+      - id: "openai/o4-mini"
+        name: "o4 Mini"
+        enabled: true
+        notes: "Latest compact reasoning model"
+
+  # ============================================================================
+  # Anthropic
+  # ============================================================================
+  anthropic:
+    name: "Anthropic"
+    models:
+      - id: "anthropic/claude-sonnet-4"
+        name: "Claude Sonnet 4"
+        enabled: true
+        notes: "Latest Claude Sonnet"
+        
+      - id: "anthropic/claude-3.5-sonnet"
+        name: "Claude 3.5 Sonnet"
+        enabled: true
+        notes: "Previous Sonnet version"
+        
+      - id: "anthropic/claude-3.5-haiku"
+        name: "Claude 3.5 Haiku"
+        enabled: true
+        notes: "Fast, efficient Claude"
+        
+      - id: "anthropic/claude-3-opus"
+        name: "Claude 3 Opus"
+        enabled: true
+        notes: "Most capable Claude 3"
+
+  # ============================================================================
+  # Google
+  # ============================================================================
+  google:
+    name: "Google"
+    models:
+      - id: "google/gemini-2.5-pro-preview"
+        name: "Gemini 2.5 Pro"
+        enabled: true
+        notes: "Latest Gemini Pro"
+        
+      - id: "google/gemini-2.5-flash-preview"
+        name: "Gemini 2.5 Flash"
+        enabled: true
+        notes: "Fast Gemini model"
+        
+      - id: "google/gemini-2.0-flash-001"
+        name: "Gemini 2.0 Flash"
+        enabled: true
+        notes: "Previous generation Flash"
+        
+      - id: "google/gemma-3-27b-it"
+        name: "Gemma 3 27B"
+        enabled: true
+        notes: "Open-weight Gemma model"
+
+  # ============================================================================
+  # Meta (Llama)
+  # ============================================================================
+  meta:
+    name: "Meta"
+    models:
+      - id: "meta-llama/llama-4-maverick"
+        name: "Llama 4 Maverick"
+        enabled: true
+        notes: "Latest Llama 4"
+        
+      - id: "meta-llama/llama-4-scout"
+        name: "Llama 4 Scout"
+        enabled: true
+        notes: "Efficient Llama 4"
+        
+      - id: "meta-llama/llama-3.3-70b-instruct"
+        name: "Llama 3.3 70B"
+        enabled: true
+        notes: "Large Llama 3.3"
+        
+      - id: "meta-llama/llama-3.1-405b-instruct"
+        name: "Llama 3.1 405B"
+        enabled: true
+        notes: "Largest open Llama"
+        
+      - id: "meta-llama/llama-3.1-70b-instruct"
+        name: "Llama 3.1 70B"
+        enabled: true
+        notes: "Standard Llama 3.1"
+        
+      - id: "meta-llama/llama-3.1-8b-instruct"
+        name: "Llama 3.1 8B"
+        enabled: true
+        notes: "Compact Llama 3.1"
+
+  # ============================================================================
+  # Mistral AI
+  # ============================================================================
+  mistral:
+    name: "Mistral AI"
+    models:
+      - id: "mistralai/mistral-large-2411"
+        name: "Mistral Large"
+        enabled: true
+        notes: "Flagship Mistral model"
+        
+      - id: "mistralai/mistral-medium-3"
+        name: "Mistral Medium 3"
+        enabled: true
+        notes: "Balanced Mistral"
+        
+      - id: "mistralai/mistral-small-3.1-24b-instruct"
+        name: "Mistral Small 3.1"
+        enabled: true
+        notes: "Efficient Mistral"
+        
+      - id: "mistralai/codestral-2501"
+        name: "Codestral"
+        enabled: false
+        notes: "Code-focused (disabled for MIRAGE)"
+        
+      - id: "mistralai/ministral-8b"
+        name: "Ministral 8B"
+        enabled: true
+        notes: "Compact Mistral"
+
+  # ============================================================================
+  # xAI
+  # ============================================================================
+  xai:
+    name: "xAI"
+    models:
+      - id: "x-ai/grok-3-beta"
+        name: "Grok 3 Beta"
+        enabled: true
+        notes: "Latest Grok model"
+        
+      - id: "x-ai/grok-3-mini-beta"
+        name: "Grok 3 Mini"
+        enabled: true
+        notes: "Smaller Grok 3"
+        
+      - id: "x-ai/grok-2-1212"
+        name: "Grok 2"
+        enabled: true
+        notes: "Previous Grok generation"
+
+  # ============================================================================
+  # DeepSeek
+  # ============================================================================
+  deepseek:
+    name: "DeepSeek"
+    models:
+      - id: "deepseek/deepseek-chat-v3-0324"
+        name: "DeepSeek V3"
+        enabled: true
+        notes: "Latest DeepSeek chat model"
+        
+      - id: "deepseek/deepseek-r1"
+        name: "DeepSeek R1"
+        enabled: true
+        notes: "Reasoning-focused DeepSeek"
+        
+      - id: "deepseek/deepseek-r1-distill-llama-70b"
+        name: "DeepSeek R1 Distill 70B"
+        enabled: true
+        notes: "Distilled reasoning model"
+
+  # ============================================================================
+  # Qwen (Alibaba)
+  # ============================================================================
+  qwen:
+    name: "Qwen (Alibaba)"
+    models:
+      - id: "qwen/qwen3-235b-a22b"
+        name: "Qwen3 235B"
+        enabled: true
+        notes: "Largest Qwen model"
+        
+      - id: "qwen/qwen-2.5-72b-instruct"
+        name: "Qwen 2.5 72B"
+        enabled: true
+        notes: "Large Qwen 2.5"
+        
+      - id: "qwen/qwq-32b"
+        name: "QwQ 32B"
+        enabled: true
+        notes: "Reasoning-focused Qwen"
+
+  # ============================================================================
+  # Cohere
+  # ============================================================================
+  cohere:
+    name: "Cohere"
+    models:
+      - id: "cohere/command-a"
+        name: "Command A"
+        enabled: true
+        notes: "Latest Command model"
+        
+      - id: "cohere/command-r-plus-08-2024"
+        name: "Command R+"
+        enabled: true
+        notes: "Enhanced Command R"
+        
+      - id: "cohere/command-r-08-2024"
+        name: "Command R"
+        enabled: true
+        notes: "Standard Command model"
+
+  # ============================================================================
+  # Amazon (Nova)
+  # ============================================================================
+  amazon:
+    name: "Amazon"
+    models:
+      - id: "amazon/nova-pro-v1"
+        name: "Nova Pro"
+        enabled: true
+        notes: "AWS flagship model"
+        
+      - id: "amazon/nova-lite-v1"
+        name: "Nova Lite"
+        enabled: true
+        notes: "Efficient Nova"
+        
+      - id: "amazon/nova-micro-v1"
+        name: "Nova Micro"
+        enabled: true
+        notes: "Compact Nova"
+
+  # ============================================================================
+  # AI21 Labs
+  # ============================================================================
+  ai21:
+    name: "AI21 Labs"
+    models:
+      - id: "ai21/jamba-1.6-large"
+        name: "Jamba 1.6 Large"
+        enabled: true
+        notes: "Latest Jamba model"
+        
+      - id: "ai21/jamba-1.6-mini"
+        name: "Jamba 1.6 Mini"
+        enabled: true
+        notes: "Smaller Jamba"
+
+  # ============================================================================
+  # Microsoft (Phi)
+  # ============================================================================
+  microsoft:
+    name: "Microsoft"
+    models:
+      - id: "microsoft/phi-4"
+        name: "Phi-4"
+        enabled: true
+        notes: "Latest Phi model"
+        
+      - id: "microsoft/phi-4-reasoning-plus"
+        name: "Phi-4 Reasoning+"
+        enabled: true
+        notes: "Enhanced reasoning Phi"
+        
+      - id: "microsoft/mai-ds-r1"
+        name: "MAI DS R1"
+        enabled: true
+        notes: "Microsoft AI reasoning model"
+
+  # ============================================================================
+  # NVIDIA
+  # ============================================================================
+  nvidia:
+    name: "NVIDIA"
+    models:
+      - id: "nvidia/llama-3.1-nemotron-70b-instruct"
+        name: "Nemotron 70B"
+        enabled: true
+        notes: "NVIDIA fine-tuned Llama"
