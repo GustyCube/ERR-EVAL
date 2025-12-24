@@ -204,6 +204,7 @@ def update_leaderboard(
     Update or create leaderboard with a new entry.
     """
     from datetime import datetime
+    import yaml
     
     leaderboard_path = Path(leaderboard_path)
     
@@ -241,9 +242,34 @@ def update_leaderboard(
     # Update timestamp
     leaderboard.generated_at = datetime.now().isoformat()
     
+    # Load providers from models.yaml
+    config_path = Path(__file__).parent.parent / "config" / "models.yaml"
+    providers = {}
+    if config_path.exists():
+        try:
+            with open(config_path) as f:
+                config = yaml.safe_load(f)
+            for pid, pdata in config.get("providers", {}).items():
+                providers[pid] = {
+                    "name": pdata.get("name", pid),
+                    "color": pdata.get("color", "#666666"),
+                    "icon": pdata.get("icon", "default.svg"),
+                }
+        except Exception as e:
+            print(f"Warning: Could not load provider config: {e}")
+    
+    # Build output data with providers
+    output_data = {
+        "generated_at": leaderboard.generated_at,
+        "dataset_version": leaderboard.dataset_version,
+        "providers": providers,
+        "entries": [entry.model_dump() for entry in leaderboard.entries],
+    }
+    
     # Save
     leaderboard_path.parent.mkdir(parents=True, exist_ok=True)
     with open(leaderboard_path, "w") as f:
-        json.dump(leaderboard.model_dump(), f, indent=2)
+        json.dump(output_data, f, indent=2)
     
     return leaderboard
+

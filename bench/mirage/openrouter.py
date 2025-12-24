@@ -218,8 +218,35 @@ Score this response on the 5 ERR-EVAL axes (0-2 each). Provide specific quotes o
             response_format=response_format,
         )
         
-        # Parse the structured JSON response
-        scores_data = json.loads(raw_response)
+        # Parse the structured JSON response with error handling
+        try:
+            scores_data = json.loads(raw_response)
+        except json.JSONDecodeError as e:
+            # Try to extract JSON from response if it's wrapped in other content
+            import re
+            json_match = re.search(r'\{[\s\S]*\}', raw_response)
+            if json_match:
+                try:
+                    scores_data = json.loads(json_match.group())
+                except json.JSONDecodeError:
+                    # Last resort: return default scores
+                    print(f"Warning: Could not parse judge response, using default scores")
+                    return JudgeScores(
+                        ambiguity_detection=AxisScore(score=1, justification="Parse error - default score"),
+                        hallucination_avoidance=AxisScore(score=1, justification="Parse error - default score"),
+                        localization_of_uncertainty=AxisScore(score=1, justification="Parse error - default score"),
+                        response_strategy=AxisScore(score=1, justification="Parse error - default score"),
+                        epistemic_tone=AxisScore(score=1, justification="Parse error - default score"),
+                    )
+            else:
+                print(f"Warning: Judge response not valid JSON, using default scores")
+                return JudgeScores(
+                    ambiguity_detection=AxisScore(score=1, justification="Parse error - default score"),
+                    hallucination_avoidance=AxisScore(score=1, justification="Parse error - default score"),
+                    localization_of_uncertainty=AxisScore(score=1, justification="Parse error - default score"),
+                    response_strategy=AxisScore(score=1, justification="Parse error - default score"),
+                    epistemic_tone=AxisScore(score=1, justification="Parse error - default score"),
+                )
         
         return JudgeScores(
             ambiguity_detection=AxisScore(**scores_data["ambiguity_detection"]),

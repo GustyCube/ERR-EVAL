@@ -25,18 +25,18 @@ providers:
     color: "#10a37f"
     icon: "openai.svg"
     models:
-      - id: "openai/gpt-5.2-pro"
-        name: "GPT-5.2 Pro"
-        enabled: true
-        reasoning: true
-        notes: "Top tier GPT-5.2 with high reasoning"
-        
       - id: "openai/gpt-5.2"
         name: "GPT-5.2"
         enabled: true
         reasoning: true
         notes: "Latest GPT-5.2"
         
+      - id: "openai/gpt-5.2-pro"
+        name: "GPT-5.2 Pro"
+        enabled: true
+        reasoning: true
+        notes: "Top tier GPT-5.2 with high reasoning"
+
       - id: "openai/gpt-5.1"
         name: "GPT-5.1"
         enabled: true

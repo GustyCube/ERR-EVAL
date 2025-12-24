@@ -65,7 +65,9 @@ const DATA_URL = 'data/results.json';
 
 async function loadData() {
     try {
-        const res = await fetch(DATA_URL);
+        // Add cache-busting query param to always get fresh data
+        const cacheBuster = `?t=${Date.now()}`;
+        const res = await fetch(DATA_URL + cacheBuster);
         if (!res.ok) throw new Error('Data Access Failure');
         const json = await res.json();
 
@@ -255,8 +257,6 @@ function renderAccuracyChart(ctx) {
     const backgroundColors = state.filtered.map(m => getProvider(m.model_id).color);
     const borderColors = state.filtered.map(m => getProvider(m.model_id).color);
 
-    const iconPlugin = createIconPlugin();
-
     state.masterChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -311,9 +311,21 @@ function renderAccuracyChart(ctx) {
                     }
                 }
             },
-            animation: { duration: 1500, easing: 'easeOutQuart' }
+            animation: { duration: 1500, easing: 'easeOutQuart' },
+            layout: { padding: { top: 30 } }
         },
-        plugins: [iconPlugin]
+        plugins: [{
+            id: 'chartTitle',
+            beforeDraw(chart) {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = THEME.signal;
+                ctx.font = 'bold 12px ' + THEME.font;
+                ctx.textAlign = 'right';
+                ctx.fillText('↑ HIGHER IS BETTER', chart.width - 20, 20);
+                ctx.restore();
+            }
+        }]
     });
 }
 
@@ -343,7 +355,7 @@ function renderCostChart(ctx) {
                 y: {
                     beginAtZero: true,
                     grid: { color: THEME.grid },
-                    title: { display: true, text: 'Avg Cost ($)', color: THEME.muted },
+                    title: { display: true, text: 'Avg Cost per Item ($)', color: THEME.muted },
                     ticks: { color: THEME.muted, callback: (v) => `$${v.toFixed(4)}` }
                 },
                 x: {
@@ -363,8 +375,21 @@ function renderCostChart(ctx) {
                     borderWidth: 1,
                     callbacks: { label: (c) => ` $${c.raw.toFixed(6)}` }
                 }
+            },
+            layout: { padding: { top: 30 } }
+        },
+        plugins: [{
+            id: 'chartTitle',
+            beforeDraw(chart) {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = '#FF5C5C';
+                ctx.font = 'bold 12px ' + THEME.font;
+                ctx.textAlign = 'right';
+                ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
+                ctx.restore();
             }
-        }
+        }]
     });
 }
 
@@ -387,7 +412,7 @@ function renderSpeedChart(ctx) {
                 y: {
                     beginAtZero: true,
                     grid: { color: THEME.grid },
-                    title: { display: true, text: 'Latency (ms)', color: THEME.muted },
+                    title: { display: true, text: 'Avg Latency (ms)', color: THEME.muted },
                     ticks: { color: THEME.muted }
                 },
                 x: { grid: { display: false }, ticks: { color: THEME.muted, maxRotation: 45, minRotation: 45 } }
@@ -400,8 +425,21 @@ function renderSpeedChart(ctx) {
                     borderWidth: 1,
                     callbacks: { label: (c) => ` ${c.raw.toFixed(0)} ms` }
                 }
+            },
+            layout: { padding: { top: 30 } }
+        },
+        plugins: [{
+            id: 'chartTitle',
+            beforeDraw(chart) {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = '#FF5C5C';
+                ctx.font = 'bold 12px ' + THEME.font;
+                ctx.textAlign = 'right';
+                ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
+                ctx.restore();
             }
-        }
+        }]
     });
 }
 
@@ -457,35 +495,20 @@ function renderCombinedChart(ctx) {
                         }
                     }
                 }
+            },
+            layout: { padding: { top: 30 } }
+        },
+        plugins: [{
+            id: 'chartTitle',
+            beforeDraw(chart) {
+                const ctx = chart.ctx;
+                ctx.save();
+                ctx.fillStyle = THEME.signal;
+                ctx.font = 'bold 12px ' + THEME.font;
+                ctx.textAlign = 'right';
+                ctx.fillText('↖ TOP-LEFT = BEST (High Score, Low Cost)', chart.width - 20, 20);
+                ctx.restore();
             }
-        }
+        }]
     });
-}
-
-function createIconPlugin() {
-    return {
-        id: 'iconPlugin',
-        afterDatasetsDraw(chart) {
-            const ctx = chart.ctx;
-            chart.data.datasets.forEach((dataset, i) => {
-                const meta = chart.getDatasetMeta(i);
-                if (!meta.hidden) {
-                    meta.data.forEach((element, index) => {
-                        const modelEntry = state.filtered[index];
-                        if (!modelEntry) return;
-                        const provider = getProvider(modelEntry.model_id);
-                        const icon = provider.icon || '?';
-
-                        ctx.fillStyle = THEME.text;
-                        ctx.font = '14px Arial';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'bottom';
-
-                        const position = element.tooltipPosition();
-                        ctx.fillText(icon, position.x, position.y - 8);
-                    });
-                }
-            });
-        }
-    };
 }

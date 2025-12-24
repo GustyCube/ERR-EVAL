@@ -53,11 +53,17 @@
                     <p class="large-text">DO AI MODELS KNOW WHAT THEY <span class="highlight-risk glitch-hover"
                             data-text="DON'T">DON'T</span> KNOW?</p>
                     <p class="sub-text">
-                        <strong>Built for nerds. Executed simply.</strong>
+                        <strong>ERR-EVAL: Epistemic Reasoning & Reliability Evaluation</strong>
                         <br><br>
-                        We feed models corrupted commands, false premises, and ambiguity.
-                        The goal isn't to answer—it's to question. Reliability means detecting missing data
-                        and explaining the error, not hallucinating a response.
+                        We test whether AI models can recognize when they <em>shouldn't</em> answer confidently.
+                        Each model faces 125 adversarial prompts designed to pressure them into hallucinating—
+                        incomplete information, hidden ambiguities, false premises, and impossible constraints.
+                        <br><br>
+                        <strong>The benchmark scores 5 axes:</strong> detecting ambiguity, avoiding hallucinations,
+                        localizing what's missing, choosing the right response strategy, and maintaining calibrated
+                        confidence.
+                        Models that refuse to guess when information is missing score higher than those that confidently
+                        make things up.
                     </p>
                 </div>
                 <div class="hero-metrics">
