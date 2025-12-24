@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRAGE Benchmark - Epistemic Reliability Leaderboard</title>
+    <meta name="description" content="MIRAGE benchmark measuring AI model epistemic reliability under uncertainty">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="logo-badge">
+                    <span class="logo-icon">◇</span>
+                    <span class="logo-text">MIRAGE</span>
+                </div>
+                <h1>Epistemic Reliability Benchmark</h1>
+                <p class="hero-subtitle">
+                    Measuring whether AI models know what they don't know.
+                    <br>
+                    <span class="highlight">Detect ambiguity. Avoid hallucination. Calibrate confidence.</span>
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="total-models">0</span>
+                        <span class="stat-label">Models Evaluated</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">125</span>
+                        <span class="stat-label">Test Items</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">5</span>
+                        <span class="stat-label">Uncertainty Tracks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Axis Overview -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">◈</span>
+                Scoring Axes
+            </h2>
+            <div class="axes-grid">
+                <div class="axis-card">
+                    <div class="axis-icon">🔍</div>
+                    <h3>Ambiguity Detection</h3>
+                    <p>Does the model notice when something is unclear or wrong?</p>
+                </div>
+                <div class="axis-card">
+                    <div class="axis-icon">🚫</div>
+                    <h3>Hallucination Avoidance</h3>
+                    <p>Does it avoid inventing facts or assumptions?</p>
+                </div>
+                <div class="axis-card">
+                    <div class="axis-icon">📍</div>
+                    <h3>Localization of Uncertainty</h3>
+                    <p>Can it pinpoint exactly what is missing or contradictory?</p>
+                </div>
+                <div class="axis-card">
+                    <div class="axis-icon">🎯</div>
+                    <h3>Response Strategy</h3>
+                    <p>Does it ask the right clarifying questions or propose valid branches?</p>
+                </div>
+                <div class="axis-card">
+                    <div class="axis-icon">⚖️</div>
+                    <h3>Epistemic Tone</h3>
+                    <p>Is confidence calibrated and non-dismissive?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🏆</span>
+                Leaderboard
+            </h2>
+            <div class="leaderboard-container glass-card">
+                <div class="leaderboard-controls">
+                    <input type="text" id="search-input" placeholder="Search models..." class="search-input">
+                    <select id="sort-select" class="sort-select">
+                        <option value="overall">Sort by Overall Score</option>
+                        <option value="ambiguity_detection">Sort by Ambiguity Detection</option>
+                        <option value="hallucination_avoidance">Sort by Hallucination Avoidance</option>
+                        <option value="localization_of_uncertainty">Sort by Localization</option>
+                        <option value="response_strategy">Sort by Response Strategy</option>
+                        <option value="epistemic_tone">Sort by Epistemic Tone</option>
+                    </select>
+                </div>
+                <div class="table-wrapper">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th class="rank-col">#</th>
+                                <th class="model-col">Model</th>
+                                <th class="score-col">Score</th>
+                                <th class="track-col" title="Track A: Noisy Perception">A</th>
+                                <th class="track-col" title="Track B: Ambiguous Semantics">B</th>
+                                <th class="track-col" title="Track C: False Premise">C</th>
+                                <th class="track-col" title="Track D: Underspecified">D</th>
+                                <th class="track-col" title="Track E: Conflicts">E</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="no-data-message" class="no-data-message" style="display: none;">
+                    <p>No evaluation data available yet.</p>
+                    <p class="subdued">Run an evaluation to see results here.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">📊</span>
+                Visualizations
+            </h2>
+            <div class="charts-grid">
+                <div class="chart-card glass-card">
+                    <h3>Axis Comparison (Top 5 Models)</h3>
+                    <div class="chart-container">
+                        <canvas id="radar-chart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass-card">
+                    <h3>Track Performance</h3>
+                    <div class="chart-container">
+                        <canvas id="bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Track Info -->
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-icon">🎯</span>
+                Uncertainty Tracks
+            </h2>
+            <div class="tracks-grid">
+                <div class="track-card glass-card">
+                    <div class="track-header">
+                        <span class="track-letter">A</span>
+                        <h3>Noisy Perception</h3>
+                    </div>
+                    <p>Corrupted sensory data, partial transcripts, misheard phrases, timing ambiguity.</p>
+                </div>
+                <div class="track-card glass-card">
+                    <div class="track-header">
+                        <span class="track-letter">B</span>
+                        <h3>Ambiguous Semantics</h3>
+                    </div>
+                    <p>Underspecified pronouns, scope ambiguity, attachment issues, multiple valid parses.</p>
+                </div>
+                <div class="track-card glass-card">
+                    <div class="track-header">
+                        <span class="track-letter">C</span>
+                        <h3>False Premise Traps</h3>
+                    </div>
+                    <p>Subtly wrong assumptions embedded in the question that should be challenged.</p>
+                </div>
+                <div class="track-card glass-card">
+                    <div class="track-header">
+                        <span class="track-letter">D</span>
+                        <h3>Underspecified Tasks</h3>
+                    </div>
+                    <p>Missing constraints, goals, definitions, or priorities needed to complete the task.</p>
+                </div>
+                <div class="track-card glass-card">
+                    <div class="track-header">
+                        <span class="track-letter">E</span>
+                        <h3>Conflicting Constraints</h3>
+                    </div>
+                    <p>Quiet contradictions, mutually exclusive requirements, impossible conditions.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>
+                MIRAGE Benchmark © 2024 Bennett Schwartz
+                <br>
+                <a href="https://github.com/GustyCube/MIRAGE" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -29,9 +29,6 @@ build/
 .coverage
 htmlcov/
 
-# Results (can be regenerated)
-frontend/data/results.json
-
 # OS files
 .DS_Store
 Thumbs.db
