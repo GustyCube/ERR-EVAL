@@ -12,6 +12,7 @@ env/
 # Environment variables
 .env
 .env.local
+bench/.env
 
 # IDE
 .vscode/
@@ -32,3 +33,9 @@ htmlcov/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Bench results (large JSON files from evaluations)
+bench/results/
+
+# Temporary files
+bench/add_results.py
