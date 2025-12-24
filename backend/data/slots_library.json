@@ -1,0 +1,321 @@
+{
+    "global_slots": {
+        "person_names": [
+            "Alex",
+            "Jordan",
+            "Taylor",
+            "Morgan",
+            "Casey",
+            "Riley",
+            "Quinn",
+            "Avery"
+        ],
+        "family_relations": [
+            "my dad",
+            "my mom",
+            "my sister",
+            "my brother",
+            "my partner",
+            "my roommate",
+            "my friend",
+            "my coworker"
+        ],
+        "noise_sources": [
+            "washing machine",
+            "dishwasher",
+            "air conditioner",
+            "vacuum cleaner",
+            "blender",
+            "lawn mower",
+            "construction noise",
+            "traffic"
+        ],
+        "locations_indoor": [
+            "in the kitchen",
+            "in the basement",
+            "in the living room",
+            "in my office",
+            "in the hallway",
+            "upstairs",
+            "downstairs"
+        ],
+        "locations_outdoor": [
+            "in the parking lot",
+            "at the park",
+            "on the street",
+            "at the mall",
+            "at work",
+            "at school"
+        ],
+        "times_of_day": [
+            "this morning",
+            "last night",
+            "yesterday afternoon",
+            "earlier today",
+            "a few hours ago"
+        ],
+        "days": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        ],
+        "numbers_small": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+        ],
+        "numbers_medium": [
+            "15",
+            "20",
+            "25",
+            "30",
+            "45",
+            "50",
+            "75",
+            "100"
+        ],
+        "durations_short": [
+            "5 minutes",
+            "10 minutes",
+            "15 minutes",
+            "30 minutes",
+            "45 minutes"
+        ],
+        "durations_medium": [
+            "1 hour",
+            "90 minutes",
+            "2 hours",
+            "3 hours",
+            "half a day"
+        ],
+        "currencies_small": [
+            "$20",
+            "$50",
+            "$100",
+            "$150",
+            "$200"
+        ],
+        "currencies_medium": [
+            "$500",
+            "$750",
+            "$1000",
+            "$1500",
+            "$2000"
+        ],
+        "currencies_large": [
+            "$5000",
+            "$10000",
+            "$25000",
+            "$50000"
+        ],
+        "tech_devices": [
+            "laptop",
+            "phone",
+            "tablet",
+            "smart speaker",
+            "TV",
+            "monitor",
+            "headphones"
+        ],
+        "programming_languages": [
+            "Python",
+            "JavaScript",
+            "Java",
+            "Go",
+            "Rust",
+            "TypeScript",
+            "C++"
+        ],
+        "communication_platforms": [
+            "Zoom",
+            "Teams",
+            "Google Meet",
+            "Slack",
+            "Discord",
+            "email"
+        ],
+        "food_items": [
+            "pizza",
+            "salad",
+            "sandwich",
+            "soup",
+            "steak",
+            "pasta",
+            "sushi"
+        ],
+        "drinks": [
+            "coffee",
+            "tea",
+            "water",
+            "juice",
+            "soda",
+            "smoothie"
+        ],
+        "colors": [
+            "red",
+            "blue",
+            "green",
+            "yellow",
+            "purple",
+            "orange",
+            "black",
+            "white",
+            "gray"
+        ],
+        "adjectives_positive": [
+            "great",
+            "excellent",
+            "fantastic",
+            "wonderful",
+            "amazing",
+            "perfect"
+        ],
+        "adjectives_negative": [
+            "bad",
+            "terrible",
+            "awful",
+            "poor",
+            "disappointing",
+            "frustrating"
+        ],
+        "certainty_modifiers": [
+            "definitely",
+            "probably",
+            "maybe",
+            "possibly",
+            "certainly",
+            "likely"
+        ],
+        "uncertainty_modifiers": [
+            "might",
+            "could",
+            "perhaps",
+            "I think",
+            "seems like",
+            "appears to be"
+        ]
+    },
+    "track_specific": {
+        "A": {
+            "audio_descriptions": [
+                "muffled",
+                "distorted",
+                "unclear",
+                "garbled",
+                "fuzzy",
+                "choppy"
+            ],
+            "interference_sources": [
+                "static",
+                "feedback",
+                "echo",
+                "background noise",
+                "interference"
+            ],
+            "perception_verbs": [
+                "heard",
+                "noticed",
+                "caught",
+                "made out",
+                "picked up"
+            ]
+        },
+        "B": {
+            "quantifiers": [
+                "all",
+                "some",
+                "many",
+                "few",
+                "most",
+                "several",
+                "each",
+                "every"
+            ],
+            "connectives": [
+                "and",
+                "or",
+                "but",
+                "however",
+                "although",
+                "unless",
+                "if"
+            ],
+            "pronouns": [
+                "he",
+                "she",
+                "they",
+                "it",
+                "this",
+                "that",
+                "these",
+                "those"
+            ]
+        },
+        "C": {
+            "common_myths": [
+                "Napoleon was short",
+                "goldfish have 3-second memory",
+                "we use 10% of brain",
+                "lightning never strikes twice"
+            ],
+            "causal_phrases": [
+                "because",
+                "since",
+                "that's why",
+                "therefore",
+                "thus",
+                "as a result"
+            ]
+        },
+        "D": {
+            "vague_adjectives": [
+                "good",
+                "better",
+                "best",
+                "fast",
+                "slow",
+                "nice",
+                "improved"
+            ],
+            "missing_constraint_types": [
+                "budget",
+                "timeline",
+                "audience",
+                "format",
+                "purpose",
+                "criteria"
+            ]
+        },
+        "E": {
+            "conflict_domains": [
+                "time",
+                "budget",
+                "resources",
+                "requirements",
+                "physics",
+                "logic"
+            ],
+            "impossibility_words": [
+                "and also",
+                "but still",
+                "while simultaneously",
+                "at the same time"
+            ]
+        }
+    },
+    "constraints": {
+        "preserve_ambiguity": true,
+        "max_substitutions_per_item": 5,
+        "require_semantic_consistency": true
+    }
+}
