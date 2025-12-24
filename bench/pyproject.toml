@@ -30,7 +30,7 @@ dev = [
 ]
 
 [project.scripts]
-erreval = "mirage.cli:main"
+erreval = "erreval.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["mirage"]
+packages = ["erreval"]

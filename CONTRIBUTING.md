@@ -22,10 +22,10 @@ pip install -e ".[dev]"
 
 ```bash
 # Single model
-python -m mirage evaluate --model "openai/gpt-4o" --limit 25
+python -m erreval evaluate --model "openai/gpt-4o" --limit 25
 
 # All models
-python -m mirage run-all --skip-existing
+python -m erreval run-all --skip-existing
 ```
 
 ### Code Style

@@ -23,7 +23,7 @@ from .openrouter import OpenRouterClient, normalize_response
 from .variant_engine import VariantEngine
 
 
-class MirageRunner:
+class ErrevalRunner:
     """
     Orchestrates ERR-EVAL benchmark evaluation runs.
     """

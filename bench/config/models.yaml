@@ -24,6 +24,7 @@ providers:
     name: "OpenAI"
     color: "#10a37f"
     icon: "openai.svg"
+    icon_background: "#ffffff"
     models:
       - id: "openai/gpt-5.2"
         name: "GPT-5.2"
@@ -85,11 +86,12 @@ providers:
         reasoning: true
         notes: "Reasoning model"
         
-      - id: "openai/o3-pro"
-        name: "o3 Pro"
-        enabled: true
-        reasoning: true
-        notes: "Enhanced o3"
+      # Requires BYOK; I will do this later
+      # - id: "openai/o3-pro"
+      #   name: "o3 Pro"
+      #   enabled: true
+      #   reasoning: true
+      #   notes: "Enhanced o3"
         
       - id: "openai/gpt-oss-120b"
         name: "GPT-OSS 120B"
@@ -170,10 +172,11 @@ providers:
   # ============================================================================
   # xAI (Grok)
   # ============================================================================
-  xai:
+  x-ai:
     name: "xAI"
     color: "#ffffff"
     icon: "xai.svg"
+    icon_background: "#ffffff"
     models:
       - id: "x-ai/grok-4"
         name: "Grok 4"
@@ -242,10 +245,11 @@ providers:
   # ============================================================================
   # Moonshot (Kimi)
   # ============================================================================
-  moonshot:
+  moonshotai:
     name: "Moonshot"
     color: "#00d4aa"
     icon: "moonshot.svg"
+    icon_background: "#ffffff"
     models:
       - id: "moonshotai/kimi-k2-thinking"
         name: "Kimi K2 Thinking"
@@ -262,11 +266,30 @@ providers:
   # ============================================================================
   # Zhipu (GLM)
   # ============================================================================
-  zhipu:
+  z-ai:
     name: "Zhipu AI"
     color: "#ff6b35"
     icon: "zhipu.svg"
+    icon_background: "#ffffff"
     models:
+      - id: "z-ai/glm-4.7"
+        name: "GLM-4.7"
+        enabled: true
+        reasoning: true
+        notes: "Latest GLM-4.7"
+        
+      - id: "z-ai/glm-4.6"
+        name: "GLM-4.6"
+        enabled: true
+        reasoning: true
+        notes: "GLM-4.6"
+        
+      - id: "z-ai/glm-4.6v"
+        name: "GLM-4.6V"
+        enabled: true
+        reasoning: true
+        notes: "GLM-4.6 Vision"
+        
       - id: "z-ai/glm-4.5"
         name: "GLM-4.5"
         enabled: true
@@ -278,3 +301,17 @@ providers:
         enabled: true
         reasoning: true
         notes: "GLM-4.5 Vision"
+
+  # ============================================================================
+  # Minimax
+  # ============================================================================
+  minimax:
+    name: "Minimax"
+    color: "#ff7b5c"
+    icon: "minimax.svg"
+    models:
+      - id: "minimax/minimax-m2.1"
+        name: "Minimax M2.1"
+        enabled: true
+        reasoning: true
+        notes: "Minimax M2.1"

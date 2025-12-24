@@ -33,7 +33,7 @@ class OpenRouterClient:
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://github.com/mirage-benchmark",
+            "HTTP-Referer": "https://github.com/GustyCube/ERR-EVAL",
             "X-Title": "ERR-EVAL Benchmark",
         }
     
@@ -44,13 +44,19 @@ class OpenRouterClient:
         temperature: float = 0.0,
         max_tokens: int = 2048,
         response_format: dict[str, Any] | None = None,
+        max_retries: int = 5,
     ) -> tuple[str, str]:
         """
         Send a completion request to OpenRouter.
         
         Returns:
             (content, generation_id)
+            
+        Raises:
+            httpx.HTTPStatusError: On non-retryable errors
         """
+        import asyncio
+        
         payload: dict[str, Any] = {
             "model": model,
             "messages": messages,
@@ -61,18 +67,43 @@ class OpenRouterClient:
         if response_format:
             payload["response_format"] = response_format
         
-        async with httpx.AsyncClient(timeout=120.0) as client:
-            response = await client.post(
-                f"{self.BASE_URL}/chat/completions",
-                headers=self.headers,
-                json=payload,
-            )
-            response.raise_for_status()
-            data = response.json()
+        last_error = None
+        for attempt in range(max_retries):
+            try:
+                async with httpx.AsyncClient(timeout=120.0) as client:
+                    response = await client.post(
+                        f"{self.BASE_URL}/chat/completions",
+                        headers=self.headers,
+                        json=payload,
+                    )
+                    response.raise_for_status()
+                    data = response.json()
+                
+                content = data["choices"][0]["message"]["content"]
+                gen_id = data.get("id", "")
+                return content, gen_id
+                
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code == 429:
+                    # Rate limited - exponential backoff
+                    wait_time = (2 ** attempt) + 1  # 2, 3, 5, 9, 17 seconds
+                    print(f"  Rate limited (429), waiting {wait_time}s before retry {attempt + 1}/{max_retries}...")
+                    await asyncio.sleep(wait_time)
+                    last_error = e
+                else:
+                    # Non-retryable error
+                    raise
+            except httpx.TimeoutException as e:
+                # Timeout - retry with backoff
+                wait_time = (2 ** attempt) + 1
+                print(f"  Timeout, waiting {wait_time}s before retry {attempt + 1}/{max_retries}...")
+                await asyncio.sleep(wait_time)
+                last_error = e
         
-        content = data["choices"][0]["message"]["content"]
-        gen_id = data.get("id", "")
-        return content, gen_id
+        # All retries exhausted
+        if last_error:
+            raise last_error
+        raise RuntimeError("Max retries exceeded")
     
     async def get_generation_stats(self, generation_id: str) -> dict[str, Any]:
         """
@@ -118,10 +149,14 @@ class OpenRouterClient:
         original_prompt: str,
         response: str,
         gold_behavior: dict[str, Any],
+        max_parse_retries: int = 3,
     ) -> JudgeScores:
         """
         Use GPT 5.2 to judge a model response with structured outputs.
+        Retries on parse failures instead of returning default scores.
         """
+        import asyncio
+        
         # Build the judge input
         judge_input = f"""## Original Prompt
 {original_prompt}
@@ -210,51 +245,51 @@ Score this response on the 5 ERR-EVAL axes (0-2 each). Provide specific quotes o
             },
         }
         
-        raw_response, _ = await self.complete(
-            model=judge_model,
-            messages=messages,
-            temperature=0.0,
-            max_tokens=1024,
-            response_format=response_format,
-        )
-        
-        # Parse the structured JSON response with error handling
-        try:
-            scores_data = json.loads(raw_response)
-        except json.JSONDecodeError as e:
-            # Try to extract JSON from response if it's wrapped in other content
-            import re
-            json_match = re.search(r'\{[\s\S]*\}', raw_response)
-            if json_match:
-                try:
-                    scores_data = json.loads(json_match.group())
-                except json.JSONDecodeError:
-                    # Last resort: return default scores
-                    print(f"Warning: Could not parse judge response, using default scores")
-                    return JudgeScores(
-                        ambiguity_detection=AxisScore(score=1, justification="Parse error - default score"),
-                        hallucination_avoidance=AxisScore(score=1, justification="Parse error - default score"),
-                        localization_of_uncertainty=AxisScore(score=1, justification="Parse error - default score"),
-                        response_strategy=AxisScore(score=1, justification="Parse error - default score"),
-                        epistemic_tone=AxisScore(score=1, justification="Parse error - default score"),
-                    )
-            else:
-                print(f"Warning: Judge response not valid JSON, using default scores")
+        last_error = None
+        for attempt in range(max_parse_retries):
+            raw_response, _ = await self.complete(
+                model=judge_model,
+                messages=messages,
+                temperature=0.0,
+                max_tokens=1024,
+                response_format=response_format,
+            )
+            
+            # Parse the structured JSON response
+            try:
+                scores_data = json.loads(raw_response)
                 return JudgeScores(
-                    ambiguity_detection=AxisScore(score=1, justification="Parse error - default score"),
-                    hallucination_avoidance=AxisScore(score=1, justification="Parse error - default score"),
-                    localization_of_uncertainty=AxisScore(score=1, justification="Parse error - default score"),
-                    response_strategy=AxisScore(score=1, justification="Parse error - default score"),
-                    epistemic_tone=AxisScore(score=1, justification="Parse error - default score"),
+                    ambiguity_detection=AxisScore(**scores_data["ambiguity_detection"]),
+                    hallucination_avoidance=AxisScore(**scores_data["hallucination_avoidance"]),
+                    localization_of_uncertainty=AxisScore(**scores_data["localization_of_uncertainty"]),
+                    response_strategy=AxisScore(**scores_data["response_strategy"]),
+                    epistemic_tone=AxisScore(**scores_data["epistemic_tone"]),
                 )
+            except (json.JSONDecodeError, KeyError) as e:
+                # Try to extract JSON from response if wrapped in other content
+                json_match = re.search(r'\{[\s\S]*\}', raw_response)
+                if json_match:
+                    try:
+                        scores_data = json.loads(json_match.group())
+                        return JudgeScores(
+                            ambiguity_detection=AxisScore(**scores_data["ambiguity_detection"]),
+                            hallucination_avoidance=AxisScore(**scores_data["hallucination_avoidance"]),
+                            localization_of_uncertainty=AxisScore(**scores_data["localization_of_uncertainty"]),
+                            response_strategy=AxisScore(**scores_data["response_strategy"]),
+                            epistemic_tone=AxisScore(**scores_data["epistemic_tone"]),
+                        )
+                    except (json.JSONDecodeError, KeyError):
+                        pass
+                
+                # Parse failed - retry
+                last_error = e
+                if attempt < max_parse_retries - 1:
+                    wait_time = 2 ** attempt
+                    print(f"  Judge parse failed, retrying in {wait_time}s ({attempt + 1}/{max_parse_retries})...")
+                    await asyncio.sleep(wait_time)
         
-        return JudgeScores(
-            ambiguity_detection=AxisScore(**scores_data["ambiguity_detection"]),
-            hallucination_avoidance=AxisScore(**scores_data["hallucination_avoidance"]),
-            localization_of_uncertainty=AxisScore(**scores_data["localization_of_uncertainty"]),
-            response_strategy=AxisScore(**scores_data["response_strategy"]),
-            epistemic_tone=AxisScore(**scores_data["epistemic_tone"]),
-        )
+        # All retries exhausted - raise error instead of returning fake scores
+        raise ValueError(f"Failed to parse judge response after {max_parse_retries} attempts: {last_error}")
 
 
 def normalize_response(response: str) -> str:

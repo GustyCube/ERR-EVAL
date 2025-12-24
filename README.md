@@ -2,7 +2,7 @@
 
 **ERR-EVAL** (Epistemic Reasoning & Reliability Evaluation) is an epistemic reliability benchmark that measures whether AI models can detect ambiguity, avoid hallucinating, localize uncertainty, and maintain calibrated confidence when inputs are incomplete, noisy, misleading, or internally inconsistent.
 
-🔗 **[Live Leaderboard](https://gustycube.github.io/ERR-EVAL/)**
+🔗 **[Live Leaderboard](https://ERR-EVAL.gustycube.com)**
 
 ## What ERR-EVAL Measures
 
@@ -47,13 +47,13 @@ OPENROUTER_API_KEY=sk-or-v1-your-key-here
 Run a single model evaluation:
 
 ```bash
-python -m mirage evaluate --model "openai/gpt-4o" --limit 25
+python -m erreval evaluate --model "openai/gpt-5.2" --limit 25
 ```
 
 Run all models from `config/models.yaml`:
 
 ```bash
-python -m mirage run-all --skip-existing
+python -m erreval run-all --skip-existing
 ```
 
 ## Results
@@ -64,7 +64,7 @@ Results are saved to `frontend/data/results.json` for the leaderboard visualizat
 
 The frontend is automatically deployed to GitHub Pages on push to `main`. The leaderboard is available at:
 
-**https://gustycube.github.io/ERR-EVAL/**
+**https://ERR-EVAL.gustycube.com**
 
 ## License
 

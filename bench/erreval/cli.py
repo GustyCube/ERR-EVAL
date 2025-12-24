@@ -30,7 +30,7 @@ def main():
 def evaluate(model: str, seed: int, tracks: str | None, limit: int | None,
              output: str | None, temperature: float, judge: str):
     """Run ERR-EVAL evaluation on a model."""
-    from .runner import MirageRunner
+    from .runner import ErrevalRunner
     from .reporter import generate_results_json, generate_markdown_report, generate_leaderboard_entry, update_leaderboard
     
     console.print(f"[bold blue]ERR-EVAL Benchmark Evaluation[/bold blue]")
@@ -41,7 +41,7 @@ def evaluate(model: str, seed: int, tracks: str | None, limit: int | None,
     
     track_list = tracks.split(",") if tracks else None
     
-    runner = MirageRunner(judge_model=judge)
+    runner = ErrevalRunner(judge_model=judge)
     
     async def run_with_progress():
         with Progress(
@@ -128,7 +128,7 @@ def run_all(seed: int, tracks: str | None, limit: int, temperature: float, judge
     """Run ERR-EVAL evaluation on ALL enabled models from models.yaml."""
     import yaml
     import json
-    from .runner import MirageRunner
+    from .runner import ErrevalRunner
     from .reporter import generate_results_json, generate_markdown_report, generate_leaderboard_entry, update_leaderboard
     
     # Pre-flight checks
@@ -231,7 +231,7 @@ def run_all(seed: int, tracks: str | None, limit: int, temperature: float, judge
         raise click.Abort()
     
     track_list = tracks.split(",") if tracks else None
-    runner = MirageRunner(judge_model=judge)
+    runner = ErrevalRunner(judge_model=judge)
     
     results = []
     failed = []
@@ -332,9 +332,9 @@ def list_models():
 @click.option("--tracks", "-t", default=None, help="Comma-separated track letters")
 def stats(tracks: str | None):
     """Show dataset statistics."""
-    from .runner import MirageRunner
+    from .runner import ErrevalRunner
     
-    runner = MirageRunner()
+    runner = ErrevalRunner()
     track_list = tracks.split(",") if tracks else None
     items = runner.load_dataset(tracks=track_list)
     

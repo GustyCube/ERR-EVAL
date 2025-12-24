@@ -10,7 +10,8 @@ let state = {
     masterChart: null,
     providers: {},
     currentTab: 'accuracy',
-    selectedModels: new Set()
+    selectedModels: new Set(),
+    iconCache: {} // Cache for loaded icon images
 };
 
 // AESTHETIC CONFIG (Matches CSS)
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await new Promise(r => setTimeout(r, 800));
 
     await loadData();
+    await preloadIcons(); // Load provider icons
     setupInteractions();
     populateModelFilter();
     renderAll();
@@ -57,6 +59,74 @@ function getProvider(modelId) {
         return state.providers[prefix];
     }
     return DEFAULT_PROVIDER;
+}
+
+// Preload provider icons as Image objects
+async function preloadIcons() {
+    const providers = state.providers || {};
+    const loadPromises = [];
+
+    for (const [key, provider] of Object.entries(providers)) {
+        if (provider.icon && !state.iconCache[key]) {
+            const img = new Image();
+            const promise = new Promise((resolve) => {
+                img.onload = () => {
+                    state.iconCache[key] = img;
+                    resolve();
+                };
+                img.onerror = () => resolve(); // Skip on error
+            });
+            img.src = `assets/${provider.icon}`;
+            loadPromises.push(promise);
+        }
+    }
+
+    await Promise.all(loadPromises);
+}
+
+// Icon plugin for Chart.js - draws provider icons above bars
+// Takes sorted data array to match chart bar order
+function createIconPlugin(sortedData) {
+    return {
+        id: 'iconPlugin',
+        afterDatasetsDraw(chart) {
+            const ctx = chart.ctx;
+            const meta = chart.getDatasetMeta(0);
+            const data = sortedData || state.filtered;
+
+            meta.data.forEach((bar, index) => {
+                const modelEntry = data[index];
+                if (!modelEntry) return;
+
+                const providerKey = modelEntry.model_id.split('/')[0];
+                const icon = state.iconCache[providerKey];
+                const provider = state.providers[providerKey] || {};
+
+                if (icon) {
+                    const iconSize = 20;
+                    const x = bar.x - iconSize / 2;
+                    const y = bar.y - iconSize - 5;
+
+                    ctx.save();
+
+                    // Draw background circle if icon_background is set
+                    if (provider.icon_background) {
+                        const centerX = bar.x;
+                        const centerY = y + iconSize / 2;
+                        const radius = iconSize / 2 + 3;
+
+                        ctx.beginPath();
+                        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                        ctx.fillStyle = provider.icon_background;
+                        ctx.fill();
+                    }
+
+                    ctx.drawImage(icon, x, y, iconSize, iconSize);
+                    ctx.restore();
+                }
+            });
+        }
+    };
 }
 
 // Data source - switch to GitHub raw URL when deployed
@@ -250,12 +320,13 @@ function renderChart() {
     else if (chartType === 'combined') renderCombinedChart(ctx);
 }
 
-// 1. Accuracy Chart (Original bar chart style)
+// 1. Accuracy Chart (Bar chart, sorted high to low)
 function renderAccuracyChart(ctx) {
-    const labels = state.filtered.map(m => m.model_name);
-    const dataPoints = state.filtered.map(m => m.overall_score);
-    const backgroundColors = state.filtered.map(m => getProvider(m.model_id).color);
-    const borderColors = state.filtered.map(m => getProvider(m.model_id).color);
+    const sorted = [...state.filtered].sort((a, b) => b.overall_score - a.overall_score);
+    const labels = sorted.map(m => m.model_name);
+    const dataPoints = sorted.map(m => m.overall_score);
+    const backgroundColors = sorted.map(m => getProvider(m.model_id).color);
+    const borderColors = sorted.map(m => getProvider(m.model_id).color);
 
     state.masterChart = new Chart(ctx, {
         type: 'bar',
@@ -312,20 +383,23 @@ function renderAccuracyChart(ctx) {
                 }
             },
             animation: { duration: 1500, easing: 'easeOutQuart' },
-            layout: { padding: { top: 30 } }
+            layout: { padding: { top: 50 } } // Extra padding for icons
         },
-        plugins: [{
-            id: 'chartTitle',
-            beforeDraw(chart) {
-                const ctx = chart.ctx;
-                ctx.save();
-                ctx.fillStyle = THEME.signal;
-                ctx.font = 'bold 12px ' + THEME.font;
-                ctx.textAlign = 'right';
-                ctx.fillText('↑ HIGHER IS BETTER', chart.width - 20, 20);
-                ctx.restore();
+        plugins: [
+            createIconPlugin(sorted),
+            {
+                id: 'chartTitle',
+                beforeDraw(chart) {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.fillStyle = THEME.signal;
+                    ctx.font = 'bold 12px ' + THEME.font;
+                    ctx.textAlign = 'right';
+                    ctx.fillText('↑ HIGHER IS BETTER', chart.width - 20, 20);
+                    ctx.restore();
+                }
             }
-        }]
+        ]
     });
 }
 
@@ -376,28 +450,32 @@ function renderCostChart(ctx) {
                     callbacks: { label: (c) => ` $${c.raw.toFixed(6)}` }
                 }
             },
-            layout: { padding: { top: 30 } }
+            layout: { padding: { top: 50 } }
         },
-        plugins: [{
-            id: 'chartTitle',
-            beforeDraw(chart) {
-                const ctx = chart.ctx;
-                ctx.save();
-                ctx.fillStyle = '#FF5C5C';
-                ctx.font = 'bold 12px ' + THEME.font;
-                ctx.textAlign = 'right';
-                ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
-                ctx.restore();
+        plugins: [
+            createIconPlugin(sorted),
+            {
+                id: 'chartTitle',
+                beforeDraw(chart) {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.fillStyle = '#FF5C5C';
+                    ctx.font = 'bold 12px ' + THEME.font;
+                    ctx.textAlign = 'right';
+                    ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
+                    ctx.restore();
+                }
             }
-        }]
+        ]
     });
 }
 
-// 3. Speed Chart (Vertical bar, latency)
+// 3. Speed Chart (Vertical bar, latency, sorted low to high)
 function renderSpeedChart(ctx) {
-    const labels = state.filtered.map(m => m.model_name);
-    const data = state.filtered.map(m => m.avg_latency || 0);
-    const colors = state.filtered.map(m => getProvider(m.model_id).color);
+    const sorted = [...state.filtered].sort((a, b) => (a.avg_latency || 0) - (b.avg_latency || 0));
+    const labels = sorted.map(m => m.model_name);
+    const data = sorted.map(m => m.avg_latency || 0);
+    const colors = sorted.map(m => getProvider(m.model_id).color);
 
     state.masterChart = new Chart(ctx, {
         type: 'bar',
@@ -426,20 +504,23 @@ function renderSpeedChart(ctx) {
                     callbacks: { label: (c) => ` ${c.raw.toFixed(0)} ms` }
                 }
             },
-            layout: { padding: { top: 30 } }
+            layout: { padding: { top: 50 } }
         },
-        plugins: [{
-            id: 'chartTitle',
-            beforeDraw(chart) {
-                const ctx = chart.ctx;
-                ctx.save();
-                ctx.fillStyle = '#FF5C5C';
-                ctx.font = 'bold 12px ' + THEME.font;
-                ctx.textAlign = 'right';
-                ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
-                ctx.restore();
+        plugins: [
+            createIconPlugin(sorted),
+            {
+                id: 'chartTitle',
+                beforeDraw(chart) {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.fillStyle = '#FF5C5C';
+                    ctx.font = 'bold 12px ' + THEME.font;
+                    ctx.textAlign = 'right';
+                    ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
+                    ctx.restore();
+                }
             }
-        }]
+        ]
     });
 }
 

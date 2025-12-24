@@ -38,12 +38,12 @@ Get your API key at: https://openrouter.ai/keys
 
 **Single Model:**
 ```bash
-python -m mirage evaluate --model "openai/gpt-4o" --limit 25
+python -m erreval evaluate --model "openai/gpt-4o" --limit 25
 ```
 
 **All Models (from config/models.yaml):**
 ```bash
-python -m mirage run-all --skip-existing
+python -m erreval run-all --skip-existing
 ```
 
 ## Project Structure
@@ -61,7 +61,7 @@ bench/
 │       └── trackE.jsonl # Conflicting Constraints
 ├── prompts/
 │   └── judge_prompt.txt # LLM judge scoring criteria
-├── mirage/              # Core evaluation engine
+├── erreval/             # Core evaluation engine
 │   ├── cli.py           # CLI commands
 │   ├── runner.py        # Evaluation orchestration
 │   ├── openrouter.py    # API client
@@ -78,7 +78,7 @@ bench/
 Run evaluation on a single model.
 
 ```bash
-python -m mirage evaluate --model "anthropic/claude-3.5-sonnet" --limit 25 --seed 42
+python -m erreval evaluate --model "anthropic/claude-3.5-sonnet" --limit 25 --seed 42
 ```
 
 Options:
@@ -91,7 +91,7 @@ Options:
 Batch evaluate all enabled models.
 
 ```bash
-python -m mirage run-all --skip-existing
+python -m erreval run-all --skip-existing
 ```
 
 Options:

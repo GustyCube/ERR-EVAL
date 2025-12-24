@@ -31,11 +31,14 @@ def generate_results_json(
                 config_data = yaml.safe_load(f)
                 if "providers" in config_data:
                     for pid, pdata in config_data["providers"].items():
-                        provider_meta[pid] = {
+                        provider_entry = {
                             "name": pdata.get("name"),
                             "color": pdata.get("color", "#666"),
                             "icon": pdata.get("icon", "?")
                         }
+                        if pdata.get("icon_background"):
+                            provider_entry["icon_background"] = pdata["icon_background"]
+                        provider_meta[pid] = provider_entry
         except Exception as e:
             print(f"Warning: Could not load provider config: {e}")
 
@@ -250,11 +253,15 @@ def update_leaderboard(
             with open(config_path) as f:
                 config = yaml.safe_load(f)
             for pid, pdata in config.get("providers", {}).items():
-                providers[pid] = {
+                provider_entry = {
                     "name": pdata.get("name", pid),
                     "color": pdata.get("color", "#666666"),
                     "icon": pdata.get("icon", "default.svg"),
                 }
+                # Include icon_background if present
+                if pdata.get("icon_background"):
+                    provider_entry["icon_background"] = pdata["icon_background"]
+                providers[pid] = provider_entry
         except Exception as e:
             print(f"Warning: Could not load provider config: {e}")
     

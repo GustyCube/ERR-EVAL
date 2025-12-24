@@ -1,11 +1,12 @@
 {
-  "generated_at": "2025-12-24T08:25:51.716941",
+  "generated_at": "2025-12-24T17:53:13.989317",
   "dataset_version": "canonical",
   "providers": {
     "openai": {
       "name": "OpenAI",
       "color": "#10a37f",
-      "icon": "openai.svg"
+      "icon": "openai.svg",
+      "icon_background": "#ffffff"
     },
     "anthropic": {
       "name": "Anthropic",
@@ -17,10 +18,11 @@
       "color": "#4285f4",
       "icon": "gemini.svg"
     },
-    "xai": {
+    "x-ai": {
       "name": "xAI",
       "color": "#ffffff",
-      "icon": "xai.svg"
+      "icon": "xai.svg",
+      "icon_background": "#ffffff"
     },
     "deepseek": {
       "name": "DeepSeek",
@@ -32,15 +34,22 @@
       "color": "#6b46c1",
       "icon": "qwen.svg"
     },
-    "moonshot": {
+    "moonshotai": {
       "name": "Moonshot",
       "color": "#00d4aa",
-      "icon": "moonshot.svg"
+      "icon": "moonshot.svg",
+      "icon_background": "#ffffff"
     },
-    "zhipu": {
+    "z-ai": {
       "name": "Zhipu AI",
       "color": "#ff6b35",
-      "icon": "zhipu.svg"
+      "icon": "zhipu.svg",
+      "icon_background": "#ffffff"
+    },
+    "minimax": {
+      "name": "Minimax",
+      "color": "#ff7b5c",
+      "icon": "minimax.svg"
     }
   },
   "entries": [
@@ -48,7 +57,6 @@
       "rank": 1,
       "model_id": "openai/gpt-5.2",
       "model_name": "openai/gpt-5.2",
-      "provider": "openai",
       "overall_score": 6.4,
       "percentile": 100.0,
       "track_scores": {
@@ -65,7 +73,6 @@
         "response_strategy": 1.0,
         "epistemic_tone": 1.6
       },
-      "items_evaluated": 5,
       "avg_latency": 7565.4,
       "avg_cost": 0.012995,
       "evaluated_at": "2025-12-24T00:22:19.755015"
@@ -74,7 +81,6 @@
       "rank": 2,
       "model_id": "anthropic/claude-opus-4.5",
       "model_name": "anthropic/claude-opus-4.5",
-      "provider": "anthropic",
       "overall_score": 5.8,
       "percentile": 96.7,
       "track_scores": {
@@ -91,7 +97,6 @@
         "response_strategy": 1.08,
         "epistemic_tone": 1.56
       },
-      "items_evaluated": 25,
       "avg_latency": 1531.16,
       "avg_cost": 0.006708,
       "evaluated_at": "2025-12-24T03:50:38.063331"
@@ -100,7 +105,6 @@
       "rank": 3,
       "model_id": "openai/gpt-5.2-pro",
       "model_name": "openai/gpt-5.2-pro",
-      "provider": "openai",
       "overall_score": 5.76,
       "percentile": 93.3,
       "track_scores": {
@@ -117,7 +121,6 @@
         "response_strategy": 1.0,
         "epistemic_tone": 1.4
       },
-      "items_evaluated": 25,
       "avg_latency": 46953.04,
       "avg_cost": 0.144334,
       "evaluated_at": "2025-12-24T01:08:24.726272"
@@ -126,7 +129,6 @@
       "rank": 4,
       "model_id": "anthropic/claude-sonnet-4.5",
       "model_name": "anthropic/claude-sonnet-4.5",
-      "provider": "anthropic",
       "overall_score": 5.28,
       "percentile": 90.0,
       "track_scores": {
@@ -143,7 +145,6 @@
         "response_strategy": 1.08,
         "epistemic_tone": 1.28
       },
-      "items_evaluated": 25,
       "avg_latency": 679.28,
       "avg_cost": 0.004217,
       "evaluated_at": "2025-12-24T04:00:02.676273"
@@ -152,7 +153,6 @@
       "rank": 5,
       "model_id": "openai/gpt-5.1",
       "model_name": "openai/gpt-5.1",
-      "provider": "openai",
       "overall_score": 4.84,
       "percentile": 86.7,
       "track_scores": {
@@ -169,7 +169,6 @@
         "response_strategy": 0.8,
         "epistemic_tone": 1.24
       },
-      "items_evaluated": 25,
       "avg_latency": 5216.44,
       "avg_cost": 0.008325,
       "evaluated_at": "2025-12-24T01:42:43.884923"
@@ -178,7 +177,6 @@
       "rank": 6,
       "model_id": "openai/gpt-5-mini",
       "model_name": "openai/gpt-5-mini",
-      "provider": "openai",
       "overall_score": 4.68,
       "percentile": 83.3,
       "track_scores": {
@@ -195,7 +193,6 @@
         "response_strategy": 0.64,
         "epistemic_tone": 1.24
       },
-      "items_evaluated": 25,
       "avg_latency": 4491.2,
       "avg_cost": 0.00257,
       "evaluated_at": "2025-12-24T02:24:32.803224"
@@ -204,7 +201,6 @@
       "rank": 7,
       "model_id": "anthropic/claude-sonnet-4",
       "model_name": "anthropic/claude-sonnet-4",
-      "provider": "anthropic",
       "overall_score": 4.64,
       "percentile": 80.0,
       "track_scores": {
@@ -221,7 +217,6 @@
         "response_strategy": 0.8,
         "epistemic_tone": 1.2
       },
-      "items_evaluated": 25,
       "avg_latency": 579.68,
       "avg_cost": 0.004001,
       "evaluated_at": "2025-12-24T04:20:51.121729"
@@ -230,7 +225,6 @@
       "rank": 8,
       "model_id": "anthropic/claude-opus-4",
       "model_name": "anthropic/claude-opus-4",
-      "provider": "anthropic",
       "overall_score": 4.48,
       "percentile": 76.7,
       "track_scores": {
@@ -247,7 +241,6 @@
         "response_strategy": 0.84,
         "epistemic_tone": 1.04
       },
-      "items_evaluated": 25,
       "avg_latency": 2894.16,
       "avg_cost": 0.018239,
       "evaluated_at": "2025-12-24T04:12:15.018404"
@@ -256,7 +249,6 @@
       "rank": 9,
       "model_id": "openai/o3",
       "model_name": "openai/o3",
-      "provider": "openai",
       "overall_score": 4.48,
       "percentile": 73.3,
       "track_scores": {
@@ -273,7 +265,6 @@
         "response_strategy": 0.8,
         "epistemic_tone": 1.2
       },
-      "items_evaluated": 25,
       "avg_latency": 2875.44,
       "avg_cost": 0.007174,
       "evaluated_at": "2025-12-24T03:18:48.419434"
@@ -282,7 +273,6 @@
       "rank": 10,
       "model_id": "openai/gpt-4.1",
       "model_name": "openai/gpt-4.1",
-      "provider": "openai",
       "overall_score": 4.44,
       "percentile": 70.0,
       "track_scores": {
@@ -299,7 +289,6 @@
         "response_strategy": 0.8,
         "epistemic_tone": 1.12
       },
-      "items_evaluated": 25,
       "avg_latency": 364.4,
       "avg_cost": 0.00295,
       "evaluated_at": "2025-12-24T02:53:27.703370"
@@ -308,7 +297,6 @@
       "rank": 11,
       "model_id": "google/gemini-3-pro-preview",
       "model_name": "google/gemini-3-pro-preview",
-      "provider": "google",
       "overall_score": 4.4,
       "percentile": 66.7,
       "track_scores": {
@@ -325,7 +313,6 @@
         "response_strategy": 0.84,
         "epistemic_tone": 1.04
       },
-      "items_evaluated": 25,
       "avg_latency": 3292.8,
       "avg_cost": 0.01843,
       "evaluated_at": "2025-12-24T04:35:23.466108"
@@ -334,7 +321,6 @@
       "rank": 12,
       "model_id": "openai/gpt-5",
       "model_name": "openai/gpt-5",
-      "provider": "openai",
       "overall_score": 4.36,
       "percentile": 63.3,
       "track_scores": {
@@ -351,7 +337,6 @@
         "response_strategy": 0.76,
         "epistemic_tone": 1.16
       },
-      "items_evaluated": 25,
       "avg_latency": 10027.88,
       "avg_cost": 0.014712,
       "evaluated_at": "2025-12-24T02:10:03.543582"
@@ -360,7 +345,6 @@
       "rank": 13,
       "model_id": "deepseek/deepseek-r1-0528",
       "model_name": "deepseek/deepseek-r1-0528",
-      "provider": "deepseek",
       "overall_score": 3.96,
       "percentile": 60.0,
       "track_scores": {
@@ -377,7 +361,6 @@
         "response_strategy": 0.72,
         "epistemic_tone": 0.96
       },
-      "items_evaluated": 25,
       "avg_latency": 677.52,
       "avg_cost": 0.003246,
       "evaluated_at": "2025-12-24T06:35:53.094509"
@@ -386,7 +369,6 @@
       "rank": 14,
       "model_id": "openai/o4-mini",
       "model_name": "openai/o4-mini",
-      "provider": "openai",
       "overall_score": 3.96,
       "percentile": 56.7,
       "track_scores": {
@@ -403,7 +385,6 @@
         "response_strategy": 0.76,
         "epistemic_tone": 1.0
       },
-      "items_evaluated": 25,
       "avg_latency": 2837.28,
       "avg_cost": 0.003856,
       "evaluated_at": "2025-12-24T03:09:17.364264"
@@ -412,7 +393,6 @@
       "rank": 15,
       "model_id": "google/gemini-3-flash-preview",
       "model_name": "google/gemini-3-flash-preview",
-      "provider": "google",
       "overall_score": 3.88,
       "percentile": 53.3,
       "track_scores": {
@@ -429,7 +409,6 @@
         "response_strategy": 0.68,
         "epistemic_tone": 0.92
       },
-      "items_evaluated": 25,
       "avg_latency": 767.8,
       "avg_cost": 0.001628,
       "evaluated_at": "2025-12-24T04:44:29.761087"
@@ -438,7 +417,6 @@
       "rank": 16,
       "model_id": "moonshotai/kimi-k2",
       "model_name": "moonshotai/kimi-k2",
-      "provider": "moonshotai",
       "overall_score": 3.84,
       "percentile": 50.0,
       "track_scores": {
@@ -455,7 +433,6 @@
         "response_strategy": 0.8,
         "epistemic_tone": 1.0
       },
-      "items_evaluated": 25,
       "avg_latency": 851.2,
       "avg_cost": 0.000687,
       "evaluated_at": "2025-12-24T08:05:57.752944"
@@ -464,7 +441,6 @@
       "rank": 17,
       "model_id": "x-ai/grok-3-mini-beta",
       "model_name": "x-ai/grok-3-mini-beta",
-      "provider": "x-ai",
       "overall_score": 3.76,
       "percentile": 46.7,
       "track_scores": {
@@ -481,42 +457,62 @@
         "response_strategy": 0.56,
         "epistemic_tone": 0.84
       },
-      "items_evaluated": 25,
       "avg_latency": 448.28,
       "avg_cost": 0.000618,
       "evaluated_at": "2025-12-24T05:46:08.705621"
     },
     {
       "rank": 18,
-      "model_id": "openai/gpt-4o",
-      "model_name": "openai/gpt-4o",
-      "provider": "openai",
-      "overall_score": 3.72,
-      "percentile": 43.3,
+      "model_id": "z-ai/glm-4.5",
+      "model_name": "z-ai/glm-4.5",
+      "overall_score": 3.76,
+      "percentile": 50.0,
       "track_scores": {
-        "A": 6.2,
-        "B": 2.4,
-        "C": 5.2,
-        "D": 2.6,
-        "E": 2.2
+        "A": 6.0,
+        "B": 3.6,
+        "C": 5.4,
+        "D": 1.4,
+        "E": 2.4
       },
       "axis_scores": {
-        "ambiguity_detection": 0.56,
-        "hallucination_avoidance": 1.0,
+        "ambiguity_detection": 0.68,
+        "hallucination_avoidance": 0.84,
         "localization_of_uncertainty": 0.64,
-        "response_strategy": 0.52,
-        "epistemic_tone": 1.0
+        "response_strategy": 0.64,
+        "epistemic_tone": 0.96
       },
-      "items_evaluated": 25,
-      "avg_latency": 328.68,
-      "avg_cost": 0.002583,
-      "evaluated_at": "2025-12-24T02:59:50.114910"
+      "avg_latency": 357.76,
+      "avg_cost": 0.003379,
+      "evaluated_at": "2025-12-24T17:53:13.936022"
     },
     {
       "rank": 19,
+      "model_id": "openai/gpt-4o",
+      "model_name": "openai/gpt-4o",
+      "overall_score": 3.74,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 4.5,
+        "B": 3.7,
+        "C": 5.5,
+        "D": 2.7,
+        "E": 2.3
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.6,
+        "hallucination_avoidance": 0.9,
+        "localization_of_uncertainty": 0.56,
+        "response_strategy": 0.6,
+        "epistemic_tone": 1.08
+      },
+      "avg_latency": 334.84,
+      "avg_cost": 0.002806,
+      "evaluated_at": "2025-12-24T16:22:40.557509"
+    },
+    {
+      "rank": 20,
       "model_id": "deepseek/deepseek-chat-v3.1",
       "model_name": "deepseek/deepseek-chat-v3.1",
-      "provider": "deepseek",
       "overall_score": 3.68,
       "percentile": 40.0,
       "track_scores": {
@@ -533,16 +529,14 @@
         "response_strategy": 0.52,
         "epistemic_tone": 0.96
       },
-      "items_evaluated": 25,
       "avg_latency": 1463.56,
       "avg_cost": 0.00063,
       "evaluated_at": "2025-12-24T06:16:52.550536"
     },
     {
-      "rank": 20,
+      "rank": 21,
       "model_id": "google/gemini-2.5-pro-preview",
       "model_name": "google/gemini-2.5-pro-preview",
-      "provider": "google",
       "overall_score": 3.64,
       "percentile": 36.7,
       "track_scores": {
@@ -559,16 +553,14 @@
         "response_strategy": 0.6,
         "epistemic_tone": 0.84
       },
-      "items_evaluated": 25,
       "avg_latency": 1977.52,
       "avg_cost": 0.019399,
       "evaluated_at": "2025-12-24T05:00:03.527893"
     },
     {
-      "rank": 21,
+      "rank": 22,
       "model_id": "google/gemini-2.5-flash",
       "model_name": "google/gemini-2.5-flash",
-      "provider": "google",
       "overall_score": 3.6,
       "percentile": 33.3,
       "track_scores": {
@@ -585,16 +577,14 @@
         "response_strategy": 0.64,
         "epistemic_tone": 0.88
       },
-      "items_evaluated": 25,
       "avg_latency": 303.36,
       "avg_cost": 0.001987,
       "evaluated_at": "2025-12-24T05:08:31.170861"
     },
     {
-      "rank": 22,
+      "rank": 23,
       "model_id": "moonshotai/kimi-k2-thinking",
       "model_name": "moonshotai/kimi-k2-thinking",
-      "provider": "moonshotai",
       "overall_score": 3.6,
       "percentile": 30.0,
       "track_scores": {
@@ -611,16 +601,14 @@
         "response_strategy": 0.6,
         "epistemic_tone": 1.0
       },
-      "items_evaluated": 25,
       "avg_latency": 972.32,
       "avg_cost": 0.002027,
       "evaluated_at": "2025-12-24T07:56:10.870393"
     },
     {
-      "rank": 23,
+      "rank": 24,
       "model_id": "openai/gpt-5-nano",
       "model_name": "openai/gpt-5-nano",
-      "provider": "openai",
       "overall_score": 3.36,
       "percentile": 26.7,
       "track_scores": {
@@ -637,16 +625,14 @@
         "response_strategy": 0.4,
         "epistemic_tone": 0.64
       },
-      "items_evaluated": 25,
       "avg_latency": 3855.76,
       "avg_cost": 0.000783,
       "evaluated_at": "2025-12-24T02:44:34.907375"
     },
     {
-      "rank": 24,
+      "rank": 25,
       "model_id": "openai/gpt-oss-120b",
       "model_name": "openai/gpt-oss-120b",
-      "provider": "openai",
       "overall_score": 3.24,
       "percentile": 23.3,
       "track_scores": {
@@ -663,16 +649,14 @@
         "response_strategy": 0.52,
         "epistemic_tone": 0.76
       },
-      "items_evaluated": 25,
       "avg_latency": 550.6,
       "avg_cost": 0.000484,
       "evaluated_at": "2025-12-24T03:30:53.567317"
     },
     {
-      "rank": 25,
+      "rank": 26,
       "model_id": "qwen/qwen3-235b-a22b-thinking-2507",
       "model_name": "qwen/qwen3-235b-a22b-thinking-2507",
-      "provider": "qwen",
       "overall_score": 3.12,
       "percentile": 20.0,
       "track_scores": {
@@ -689,16 +673,14 @@
         "response_strategy": 0.68,
         "epistemic_tone": 0.64
       },
-      "items_evaluated": 25,
       "avg_latency": 830.68,
       "avg_cost": 0.001907,
       "evaluated_at": "2025-12-24T07:23:04.712531"
     },
     {
-      "rank": 26,
+      "rank": 27,
       "model_id": "x-ai/grok-4.1-fast",
       "model_name": "x-ai/grok-4.1-fast",
-      "provider": "x-ai",
       "overall_score": 3.08,
       "percentile": 16.7,
       "track_scores": {
@@ -715,42 +697,14 @@
         "response_strategy": 0.52,
         "epistemic_tone": 0.68
       },
-      "items_evaluated": 25,
       "avg_latency": 449.76,
       "avg_cost": 0.000386,
       "evaluated_at": "2025-12-24T05:35:32.308164"
     },
     {
-      "rank": 27,
-      "model_id": "z-ai/glm-4.5",
-      "model_name": "z-ai/glm-4.5",
-      "provider": "z-ai",
-      "overall_score": 3.08,
-      "percentile": 13.3,
-      "track_scores": {
-        "A": 6.0,
-        "B": 2.6,
-        "C": 4.2,
-        "D": 1.2,
-        "E": 1.4
-      },
-      "axis_scores": {
-        "ambiguity_detection": 0.56,
-        "hallucination_avoidance": 0.64,
-        "localization_of_uncertainty": 0.56,
-        "response_strategy": 0.6,
-        "epistemic_tone": 0.72
-      },
-      "items_evaluated": 25,
-      "avg_latency": 2905.68,
-      "avg_cost": 0.003191,
-      "evaluated_at": "2025-12-24T08:25:51.716941"
-    },
-    {
       "rank": 28,
       "model_id": "z-ai/glm-4.5v",
       "model_name": "z-ai/glm-4.5v",
-      "provider": "z-ai",
       "overall_score": 3.04,
       "percentile": 10.0,
       "track_scores": {
@@ -767,7 +721,6 @@
         "response_strategy": 0.52,
         "epistemic_tone": 0.76
       },
-      "items_evaluated": 25,
       "avg_latency": 2246.6,
       "avg_cost": 0.001254,
       "evaluated_at": "2025-12-24T08:39:33.772796"
@@ -776,7 +729,6 @@
       "rank": 29,
       "model_id": "openai/gpt-oss-20b",
       "model_name": "openai/gpt-oss-20b",
-      "provider": "openai",
       "overall_score": 2.84,
       "percentile": 6.7,
       "track_scores": {
@@ -793,7 +745,6 @@
         "response_strategy": 0.4,
         "epistemic_tone": 0.6
       },
-      "items_evaluated": 25,
       "avg_latency": 658.32,
       "avg_cost": 0.000222,
       "evaluated_at": "2025-12-24T03:41:17.208712"
@@ -802,7 +753,6 @@
       "rank": 30,
       "model_id": "qwen/qwen3-32b",
       "model_name": "qwen/qwen3-32b",
-      "provider": "qwen",
       "overall_score": 2.84,
       "percentile": 3.3,
       "track_scores": {
@@ -819,7 +769,6 @@
         "response_strategy": 0.48,
         "epistemic_tone": 0.64
       },
-      "items_evaluated": 25,
       "avg_latency": 532.04,
       "avg_cost": 0.000501,
       "evaluated_at": "2025-12-24T07:39:18.163509"
