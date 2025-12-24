@@ -57,7 +57,8 @@ body {
     height: 100vh;
     opacity: 0.05;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 1;
+    /* Low z-index, behind content */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
@@ -69,7 +70,8 @@ body {
     height: 200%;
     background: radial-gradient(circle at center, transparent 0%, var(--bg-void) 70%);
     pointer-events: none;
-    z-index: 10;
+    z-index: 0;
+    /* Lowest z-index */
 }
 
 /* TYPOGRAPHY UTILS */
@@ -81,6 +83,13 @@ h4 {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.02em;
+}
+
+/* Main Content Layering */
+main {
+    position: relative;
+    z-index: 2;
+    /* Above noise */
 }
 
 a {
@@ -105,6 +114,7 @@ a:hover {
     background: rgba(5, 5, 5, 0.85);
     backdrop-filter: blur(8px);
     z-index: 100;
+    /* Highest */
 }
 
 .logo-type {
@@ -138,6 +148,12 @@ a:hover {
 .nav-link.active,
 .nav-link:hover {
     color: var(--accent-signal);
+}
+
+.icon-link svg {
+    display: block;
+    margin-bottom: 2px;
+    /* Align with text baseline */
 }
 
 /* HERO SECTION */
