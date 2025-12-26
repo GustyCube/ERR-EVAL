@@ -26,12 +26,36 @@ const THEME = {
     font: 'Chivo Mono'
 };
 
+const LIGHT_THEME = {
+    void: '#ffffff',
+    text: '#1a1a1a',
+    muted: '#666666',
+    signal: '#00c853',
+    signalDim: 'rgba(0, 200, 83, 0.2)',
+    error: '#d32f2f',
+    grid: '#e0e0e0',
+    font: 'Chivo Mono'
+};
+
+// Get current theme colors
+function getCurrentTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    return isDark ? THEME : LIGHT_THEME;
+}
+
 const DEFAULT_PROVIDER = { color: '#666666', label: 'Other', icon: '?' };
 
 // INIT
 document.addEventListener('DOMContentLoaded', async () => {
-    Chart.defaults.font.family = THEME.font;
-    Chart.defaults.color = THEME.muted;
+    // Initialize theme from localStorage
+    initTheme();
+    
+    // Initialize Chart.js defaults only if available
+    if (typeof Chart !== 'undefined') {
+        const currentTheme = getCurrentTheme();
+        Chart.defaults.font.family = currentTheme.font;
+        Chart.defaults.color = currentTheme.muted;
+    }
 
     const loader = document.getElementById('loading-overlay');
     loader.classList.add('active');
@@ -52,6 +76,68 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     loader.classList.remove('active');
 });
+
+// Theme Management
+function initTheme() {
+    // Check localStorage or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme, false);
+    
+    // Setup toggle button
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', toggleTheme);
+        updateThemeIcon();
+    }
+}
+
+function setTheme(theme, save = true) {
+    if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+    
+    if (save) {
+        localStorage.setItem('theme', theme);
+    }
+    
+    updateThemeIcon();
+    
+    // Update Chart.js defaults only if Chart is available
+    if (typeof Chart !== 'undefined') {
+        const currentTheme = getCurrentTheme();
+        Chart.defaults.color = currentTheme.muted;
+        Chart.defaults.font.family = currentTheme.font;
+        
+        // Re-render chart if it exists
+        if (state.masterChart) {
+            renderChart();
+        }
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
+
+function updateThemeIcon() {
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+    
+    if (sunIcon && moonIcon) {
+        if (isDark) {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        } else {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        }
+    }
+}
 
 function getProvider(modelId) {
     const prefix = modelId.split('/')[0];
@@ -301,14 +387,15 @@ function renderLeaderboard() {
 }
 
 function getScoreColor(val) {
-    if (val >= 7) return THEME.signal;
-    if (val >= 4) return '#ffffff';
-    return THEME.muted;
+    const currentTheme = getCurrentTheme();
+    if (val >= 7) return currentTheme.signal;
+    if (val >= 4) return currentTheme.void === '#ffffff' ? '#ffffff' : '#1a1a1a';
+    return currentTheme.muted;
 }
 
 function renderChart() {
     const ctx = document.getElementById('master-chart');
-    if (!ctx) return;
+    if (!ctx || typeof Chart === 'undefined') return;
 
     if (state.masterChart) state.masterChart.destroy();
 
@@ -322,6 +409,7 @@ function renderChart() {
 
 // 1. Accuracy Chart (Bar chart, sorted high to low)
 function renderAccuracyChart(ctx) {
+    const currentTheme = getCurrentTheme();
     const sorted = [...state.filtered].sort((a, b) => b.overall_score - a.overall_score);
     const labels = sorted.map(m => m.model_name);
     const dataPoints = sorted.map(m => m.overall_score);
@@ -339,7 +427,7 @@ function renderAccuracyChart(ctx) {
                 borderColor: borderColors,
                 borderWidth: 1,
                 barPercentage: 0.6,
-                hoverBackgroundColor: THEME.signal
+                hoverBackgroundColor: currentTheme.signal
             }]
         },
         options: {
@@ -349,33 +437,35 @@ function renderAccuracyChart(ctx) {
                 x: {
                     grid: { display: false },
                     ticks: {
-                        color: THEME.muted,
-                        font: { family: THEME.font, size: 10 },
+                        color: currentTheme.muted,
+                        font: { family: currentTheme.font, size: 10 },
                         maxRotation: 45,
                         minRotation: 45
                     }
                 },
                 y: {
-                    grid: { color: THEME.grid },
+                    grid: { color: currentTheme.grid },
                     beginAtZero: true,
                     max: 10,
                     title: {
                         display: true,
                         text: 'Reliability Score (0-10)',
-                        color: THEME.muted,
-                        font: { family: THEME.font }
+                        color: currentTheme.muted,
+                        font: { family: currentTheme.font }
                     },
-                    ticks: { color: THEME.muted }
+                    ticks: { color: currentTheme.muted }
                 }
             },
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: THEME.void,
+                    backgroundColor: currentTheme.void,
+                    titleColor: currentTheme.text,
+                    bodyColor: currentTheme.text,
                     displayColors: false,
-                    titleFont: { family: THEME.font },
-                    bodyFont: { family: THEME.font },
-                    borderColor: THEME.grid,
+                    titleFont: { family: currentTheme.font },
+                    bodyFont: { family: currentTheme.font },
+                    borderColor: currentTheme.grid,
                     borderWidth: 1,
                     callbacks: {
                         label: (context) => ` Score: ${context.raw}`
@@ -392,8 +482,8 @@ function renderAccuracyChart(ctx) {
                 beforeDraw(chart) {
                     const ctx = chart.ctx;
                     ctx.save();
-                    ctx.fillStyle = THEME.signal;
-                    ctx.font = 'bold 12px ' + THEME.font;
+                    ctx.fillStyle = currentTheme.signal;
+                    ctx.font = 'bold 12px ' + currentTheme.font;
                     ctx.textAlign = 'right';
                     ctx.fillText('↑ HIGHER IS BETTER', chart.width - 20, 20);
                     ctx.restore();
@@ -405,6 +495,7 @@ function renderAccuracyChart(ctx) {
 
 // 2. Cost Chart (Vertical bar, sorted low to high, cost on Y axis)
 function renderCostChart(ctx) {
+    const currentTheme = getCurrentTheme();
     const sorted = [...state.filtered].sort((a, b) => (a.avg_cost || 0) - (b.avg_cost || 0));
     const labels = sorted.map(m => m.model_name);
     const data = sorted.map(m => m.avg_cost || 0);
@@ -428,14 +519,14 @@ function renderCostChart(ctx) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: THEME.grid },
-                    title: { display: true, text: 'Avg Cost per Item ($)', color: THEME.muted },
-                    ticks: { color: THEME.muted, callback: (v) => `$${v.toFixed(4)}` }
+                    grid: { color: currentTheme.grid },
+                    title: { display: true, text: 'Avg Cost per Item ($)', color: currentTheme.muted },
+                    ticks: { color: currentTheme.muted, callback: (v) => `$${v.toFixed(4)}` }
                 },
                 x: {
                     grid: { display: false },
                     ticks: {
-                        color: THEME.muted,
+                        color: currentTheme.muted,
                         maxRotation: 45,
                         minRotation: 45
                     }
@@ -444,8 +535,10 @@ function renderCostChart(ctx) {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: THEME.void,
-                    borderColor: THEME.grid,
+                    backgroundColor: currentTheme.void,
+                    titleColor: currentTheme.text,
+                    bodyColor: currentTheme.text,
+                    borderColor: currentTheme.grid,
                     borderWidth: 1,
                     callbacks: { label: (c) => ` $${c.raw.toFixed(6)}` }
                 }
@@ -459,8 +552,8 @@ function renderCostChart(ctx) {
                 beforeDraw(chart) {
                     const ctx = chart.ctx;
                     ctx.save();
-                    ctx.fillStyle = '#FF5C5C';
-                    ctx.font = 'bold 12px ' + THEME.font;
+                    ctx.fillStyle = currentTheme.error;
+                    ctx.font = 'bold 12px ' + currentTheme.font;
                     ctx.textAlign = 'right';
                     ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
                     ctx.restore();
@@ -472,6 +565,7 @@ function renderCostChart(ctx) {
 
 // 3. Speed Chart (Vertical bar, latency, sorted low to high)
 function renderSpeedChart(ctx) {
+    const currentTheme = getCurrentTheme();
     const sorted = [...state.filtered].sort((a, b) => (a.avg_latency || 0) - (b.avg_latency || 0));
     const labels = sorted.map(m => m.model_name);
     const data = sorted.map(m => m.avg_latency || 0);
@@ -489,17 +583,19 @@ function renderSpeedChart(ctx) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: THEME.grid },
-                    title: { display: true, text: 'Avg Latency (ms)', color: THEME.muted },
-                    ticks: { color: THEME.muted }
+                    grid: { color: currentTheme.grid },
+                    title: { display: true, text: 'Avg Latency (ms)', color: currentTheme.muted },
+                    ticks: { color: currentTheme.muted }
                 },
-                x: { grid: { display: false }, ticks: { color: THEME.muted, maxRotation: 45, minRotation: 45 } }
+                x: { grid: { display: false }, ticks: { color: currentTheme.muted, maxRotation: 45, minRotation: 45 } }
             },
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: THEME.void,
-                    borderColor: THEME.grid,
+                    backgroundColor: currentTheme.void,
+                    titleColor: currentTheme.text,
+                    bodyColor: currentTheme.text,
+                    borderColor: currentTheme.grid,
                     borderWidth: 1,
                     callbacks: { label: (c) => ` ${c.raw.toFixed(0)} ms` }
                 }
@@ -513,8 +609,8 @@ function renderSpeedChart(ctx) {
                 beforeDraw(chart) {
                     const ctx = chart.ctx;
                     ctx.save();
-                    ctx.fillStyle = '#FF5C5C';
-                    ctx.font = 'bold 12px ' + THEME.font;
+                    ctx.fillStyle = currentTheme.error;
+                    ctx.font = 'bold 12px ' + currentTheme.font;
                     ctx.textAlign = 'right';
                     ctx.fillText('↓ LOWER IS BETTER', chart.width - 20, 20);
                     ctx.restore();
@@ -526,6 +622,7 @@ function renderSpeedChart(ctx) {
 
 // 4. Combined Chart (Scatter: Cost vs Accuracy)
 function renderCombinedChart(ctx) {
+    const currentTheme = getCurrentTheme();
     const points = state.filtered.map(m => ({
         x: m.avg_cost || 0,
         y: m.overall_score,
@@ -551,23 +648,25 @@ function renderCombinedChart(ctx) {
                 x: {
                     type: 'linear',
                     position: 'bottom',
-                    title: { display: true, text: 'Avg Cost ($)', color: THEME.muted },
-                    grid: { color: THEME.grid },
-                    ticks: { color: THEME.muted }
+                    title: { display: true, text: 'Avg Cost ($)', color: currentTheme.muted },
+                    grid: { color: currentTheme.grid },
+                    ticks: { color: currentTheme.muted }
                 },
                 y: {
                     beginAtZero: true,
                     max: 10,
-                    title: { display: true, text: 'Reliability Score (0-10)', color: THEME.muted },
-                    grid: { color: THEME.grid },
-                    ticks: { color: THEME.muted }
+                    title: { display: true, text: 'Reliability Score (0-10)', color: currentTheme.muted },
+                    grid: { color: currentTheme.grid },
+                    ticks: { color: currentTheme.muted }
                 }
             },
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: THEME.void,
-                    borderColor: THEME.grid,
+                    backgroundColor: currentTheme.void,
+                    titleColor: currentTheme.text,
+                    bodyColor: currentTheme.text,
+                    borderColor: currentTheme.grid,
                     borderWidth: 1,
                     callbacks: {
                         label: (ctx) => {
@@ -584,8 +683,8 @@ function renderCombinedChart(ctx) {
             beforeDraw(chart) {
                 const ctx = chart.ctx;
                 ctx.save();
-                ctx.fillStyle = THEME.signal;
-                ctx.font = 'bold 12px ' + THEME.font;
+                ctx.fillStyle = currentTheme.signal;
+                ctx.font = 'bold 12px ' + currentTheme.font;
                 ctx.textAlign = 'right';
                 ctx.fillText('↖ TOP-LEFT = BEST (High Score, Low Cost)', chart.width - 20, 20);
                 ctx.restore();
