@@ -136,6 +136,10 @@ a:hover {
     /* Highest */
 }
 
+:root[data-theme="light"] .site-header {
+    background: rgba(255, 255, 255, 0.85);
+}
+
 .logo-type {
     font-size: 4rem;
     line-height: 0.8;
