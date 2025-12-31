@@ -882,13 +882,8 @@ select:focus {
     .viz-grid {
         grid-template-columns: 1fr;
     }
-
-    .leaderboard-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
 }
-
+    
 /* Mobile */
 @media (max-width: 768px) {
     html {
@@ -946,63 +941,48 @@ select:focus {
     select {
         width: 100%;
         min-height: 44px;
-        /* Touch-friendly */
+        padding: 0.9rem 1rem;
+        font-size: 0.85rem;
     }
 
     .large-text {
         font-size: 2rem;
     }
 
-    /* Chart tabs */
-    .viz-tabs {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .viz-tab {
+    
+    
+    .tab-btn {
         flex: 1 1 45%;
         text-align: center;
         padding: 0.75rem;
         font-size: 0.7rem;
     }
 
-    /* Chart container - make scrollable horizontally */
-    .viz-panel {
-        min-height: 400px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .viz-chart-container {
-        min-width: 600px;
-        /* Force scroll on narrow screens */
-        height: 350px;
-    }
-
+    
     /* Table responsiveness */
-    .leaderboard-container {
+    .table-container {
         margin: 0 -1rem;
         padding: 0 1rem;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
 
-    .leaderboard-table {
+    .data-table {
         min-width: 700px;
         font-size: 0.75rem;
     }
 
-    .leaderboard-table th,
-    .leaderboard-table td {
-        padding: 0.75rem 0.5rem;
+    .data-table th,
+    .data-table td  {
+        padding: 0.75rem 0.6rem;
     }
 
-    .model-name {
-        max-width: 150px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+    .col-model {
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }   
 
     /* Footer */
     .site-footer {
@@ -1045,11 +1025,5 @@ select:focus {
         font-size: 1.5rem;
     }
 
-    .viz-tab {
-        flex: 1 1 100%;
-    }
-
-    .viz-chart-container {
-        height: 300px;
-    }
+    
 }
