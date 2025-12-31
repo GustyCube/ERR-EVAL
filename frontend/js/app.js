@@ -370,7 +370,7 @@ function renderLeaderboard() {
     tbody.innerHTML = state.filtered.map(entry => {
         const provider = getProvider(entry.model_id);
         return `
-        <tr>
+        <tr class="clickable-row" data-model-id="${entry.model_id}">
             <td class="col-rank">${String(entry.rank).padStart(2, '0')}</td>
             <td class="col-model" style="border-left: 3px solid ${provider.color}; padding-left: 1rem;">
                 ${entry.model_name}
@@ -384,6 +384,14 @@ function renderLeaderboard() {
             `).join('')}
         </tr>
     `}).join('');
+
+    // Add click handlers to open model report
+    tbody.querySelectorAll('.clickable-row').forEach(row => {
+        row.addEventListener('click', () => {
+            const modelId = row.dataset.modelId;
+            openModelReport(modelId);
+        });
+    });
 }
 
 function getScoreColor(val) {
@@ -391,6 +399,14 @@ function getScoreColor(val) {
     if (val >= 7) return currentTheme.signal;
     if (val >= 4) return currentTheme.void === '#ffffff' ? '#ffffff' : '#1a1a1a';
     return currentTheme.muted;
+}
+
+// Open model report on GitHub
+function openModelReport(modelId) {
+    // Convert model_id (e.g., "openai/gpt-5.2") to filename format (e.g., "openai_gpt-5.2_42.md")
+    const filename = modelId.replace('/', '_') + '_42.md';
+    const githubUrl = `https://github.com/GustyCube/ERR-EVAL/blob/master/bench/results/${filename}`;
+    window.open(githubUrl, '_blank');
 }
 
 function renderChart() {

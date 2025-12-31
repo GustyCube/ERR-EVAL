@@ -607,6 +607,26 @@ select:focus {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
+.data-table tr.clickable-row {
+    cursor: pointer;
+}
+
+.data-table tr.clickable-row:hover td {
+    background-color: rgba(112, 255, 139, 0.05);
+}
+
+.data-table tr.clickable-row:active td {
+    background-color: rgba(112, 255, 139, 0.1);
+}
+
+:root[data-theme="light"] .data-table tr.clickable-row:hover td {
+    background-color: rgba(0, 200, 83, 0.08);
+}
+
+:root[data-theme="light"] .data-table tr.clickable-row:active td {
+    background-color: rgba(0, 200, 83, 0.15);
+}
+
 .col-rank {
     font-weight: 700;
     color: var(--text-muted);

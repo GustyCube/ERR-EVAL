@@ -9,6 +9,8 @@ venv/
 env/
 .env/
 
+.claude/
+
 # Environment variables
 .env
 .env.local
