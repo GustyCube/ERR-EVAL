@@ -258,6 +258,27 @@ a:hover {
     max-width: 600px;
 }
 
+.hero-cta {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--bg-void);
+    background: var(--accent-signal);
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s var(--ease-out-expo);
+}
+
+.hero-cta:hover {
+    background: var(--text-primary);
+    color: var(--bg-void);
+    transform: translateY(-2px);
+}
+
 .hero-metrics {
     display: flex;
     flex-direction: column;
