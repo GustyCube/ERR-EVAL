@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-21T21:46:47.375979",
+  "generated_at": "2026-03-21T22:21:01.569814",
   "dataset_version": "canonical",
   "providers": {
     "openai": {
@@ -377,6 +377,30 @@
     },
     {
       "rank": 14,
+      "model_id": "x-ai/grok-4",
+      "model_name": "x-ai/grok-4",
+      "overall_score": 4.68,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 5.6,
+        "B": 6.4,
+        "C": 5.8,
+        "D": 2.4,
+        "E": 3.2
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.96,
+        "hallucination_avoidance": 0.96,
+        "localization_of_uncertainty": 0.88,
+        "response_strategy": 0.8,
+        "epistemic_tone": 1.08
+      },
+      "avg_latency": 5477.12,
+      "avg_cost": 0.003553,
+      "evaluated_at": "2026-03-21T22:21:01.515733"
+    },
+    {
+      "rank": 15,
       "model_id": "anthropic/claude-sonnet-4",
       "model_name": "anthropic/claude-sonnet-4",
       "overall_score": 4.64,
@@ -400,7 +424,7 @@
       "evaluated_at": "2025-12-24T04:20:51.121729"
     },
     {
-      "rank": 15,
+      "rank": 16,
       "model_id": "openai/gpt-5.4-nano",
       "model_name": "openai/gpt-5.4-nano",
       "overall_score": 4.52,
@@ -424,7 +448,31 @@
       "evaluated_at": "2026-03-21T20:58:45.671581"
     },
     {
-      "rank": 16,
+      "rank": 17,
+      "model_id": "moonshotai/kimi-k2.5",
+      "model_name": "moonshotai/kimi-k2.5",
+      "overall_score": 4.52,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 6.0,
+        "B": 5.6,
+        "C": 5.8,
+        "D": 2.0,
+        "E": 3.2
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.84,
+        "hallucination_avoidance": 1.0,
+        "localization_of_uncertainty": 0.76,
+        "response_strategy": 0.88,
+        "epistemic_tone": 1.04
+      },
+      "avg_latency": 0.0,
+      "avg_cost": 0.0,
+      "evaluated_at": "2026-03-21T21:49:20.897640"
+    },
+    {
+      "rank": 18,
       "model_id": "anthropic/claude-opus-4",
       "model_name": "anthropic/claude-opus-4",
       "overall_score": 4.48,
@@ -448,7 +496,7 @@
       "evaluated_at": "2025-12-24T04:12:15.018404"
     },
     {
-      "rank": 17,
+      "rank": 19,
       "model_id": "openai/o3",
       "model_name": "openai/o3",
       "overall_score": 4.48,
@@ -472,7 +520,7 @@
       "evaluated_at": "2025-12-24T03:18:48.419434"
     },
     {
-      "rank": 18,
+      "rank": 20,
       "model_id": "x-ai/grok-4.20-multi-agent-beta",
       "model_name": "x-ai/grok-4.20-multi-agent-beta",
       "overall_score": 4.48,
@@ -496,7 +544,7 @@
       "evaluated_at": "2026-03-21T21:18:51.883659"
     },
     {
-      "rank": 19,
+      "rank": 21,
       "model_id": "openai/gpt-4.1",
       "model_name": "openai/gpt-4.1",
       "overall_score": 4.44,
@@ -520,7 +568,7 @@
       "evaluated_at": "2025-12-24T02:53:27.703370"
     },
     {
-      "rank": 20,
+      "rank": 22,
       "model_id": "google/gemini-3-pro-preview",
       "model_name": "google/gemini-3-pro-preview",
       "overall_score": 4.4,
@@ -544,7 +592,7 @@
       "evaluated_at": "2025-12-24T04:35:23.466108"
     },
     {
-      "rank": 21,
+      "rank": 23,
       "model_id": "openai/gpt-5",
       "model_name": "openai/gpt-5",
       "overall_score": 4.36,
@@ -568,7 +616,7 @@
       "evaluated_at": "2025-12-24T02:10:03.543582"
     },
     {
-      "rank": 22,
+      "rank": 24,
       "model_id": "qwen/qwen3.5-plus-02-15",
       "model_name": "qwen/qwen3.5-plus-02-15",
       "overall_score": 4.36,
@@ -592,7 +640,7 @@
       "evaluated_at": "2026-03-21T21:28:03.667113"
     },
     {
-      "rank": 23,
+      "rank": 25,
       "model_id": "deepseek/deepseek-v3.2",
       "model_name": "deepseek/deepseek-v3.2",
       "overall_score": 4.24,
@@ -616,31 +664,7 @@
       "evaluated_at": "2026-03-21T21:21:07.983134"
     },
     {
-      "rank": 24,
-      "model_id": "x-ai/grok-4",
-      "model_name": "x-ai/grok-4",
-      "overall_score": 4.16,
-      "percentile": 50.0,
-      "track_scores": {
-        "A": 6.0,
-        "B": 5.4,
-        "C": 5.0,
-        "D": 2.0,
-        "E": 2.4
-      },
-      "axis_scores": {
-        "ambiguity_detection": 0.88,
-        "hallucination_avoidance": 0.92,
-        "localization_of_uncertainty": 0.76,
-        "response_strategy": 0.72,
-        "epistemic_tone": 0.88
-      },
-      "avg_latency": 0.0,
-      "avg_cost": 0.0,
-      "evaluated_at": "2026-03-21T21:15:47.626027"
-    },
-    {
-      "rank": 25,
+      "rank": 26,
       "model_id": "minimax/minimax-m2.1",
       "model_name": "minimax/minimax-m2.1",
       "overall_score": 4.16,
@@ -664,7 +688,7 @@
       "evaluated_at": "2026-03-21T21:37:57.152349"
     },
     {
-      "rank": 26,
+      "rank": 27,
       "model_id": "deepseek/deepseek-r1-0528",
       "model_name": "deepseek/deepseek-r1-0528",
       "overall_score": 3.96,
@@ -688,7 +712,7 @@
       "evaluated_at": "2025-12-24T06:35:53.094509"
     },
     {
-      "rank": 27,
+      "rank": 28,
       "model_id": "openai/o4-mini",
       "model_name": "openai/o4-mini",
       "overall_score": 3.96,
@@ -712,7 +736,7 @@
       "evaluated_at": "2025-12-24T03:09:17.364264"
     },
     {
-      "rank": 28,
+      "rank": 29,
       "model_id": "minimax/minimax-m2.7",
       "model_name": "minimax/minimax-m2.7",
       "overall_score": 3.96,
@@ -736,7 +760,31 @@
       "evaluated_at": "2026-03-21T21:40:55.121576"
     },
     {
-      "rank": 29,
+      "rank": 30,
+      "model_id": "z-ai/glm-5-20260211",
+      "model_name": "z-ai/glm-5-20260211",
+      "overall_score": 3.96,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 5.8,
+        "B": 3.8,
+        "C": 4.6,
+        "D": 2.2,
+        "E": 3.4
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.84,
+        "hallucination_avoidance": 0.8,
+        "localization_of_uncertainty": 0.68,
+        "response_strategy": 0.72,
+        "epistemic_tone": 0.92
+      },
+      "avg_latency": 0.0,
+      "avg_cost": 0.0,
+      "evaluated_at": "2026-03-21T22:01:28.374701"
+    },
+    {
+      "rank": 31,
       "model_id": "meta-llama/llama-4-maverick",
       "model_name": "meta-llama/llama-4-maverick",
       "overall_score": 3.92,
@@ -760,7 +808,7 @@
       "evaluated_at": "2026-03-21T21:46:47.341978"
     },
     {
-      "rank": 30,
+      "rank": 32,
       "model_id": "google/gemini-3-flash-preview",
       "model_name": "google/gemini-3-flash-preview",
       "overall_score": 3.88,
@@ -784,7 +832,31 @@
       "evaluated_at": "2025-12-24T04:44:29.761087"
     },
     {
-      "rank": 31,
+      "rank": 33,
+      "model_id": "z-ai/glm-4.7",
+      "model_name": "z-ai/glm-4.7",
+      "overall_score": 3.88,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 5.2,
+        "B": 4.4,
+        "C": 5.2,
+        "D": 2.8,
+        "E": 1.8
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.76,
+        "hallucination_avoidance": 1.0,
+        "localization_of_uncertainty": 0.64,
+        "response_strategy": 0.64,
+        "epistemic_tone": 0.84
+      },
+      "avg_latency": 0.0,
+      "avg_cost": 0.0,
+      "evaluated_at": "2026-03-21T21:51:35.622359"
+    },
+    {
+      "rank": 34,
       "model_id": "moonshotai/kimi-k2",
       "model_name": "moonshotai/kimi-k2",
       "overall_score": 3.84,
@@ -808,7 +880,31 @@
       "evaluated_at": "2025-12-24T08:05:57.752944"
     },
     {
-      "rank": 32,
+      "rank": 35,
+      "model_id": "google/gemini-3.1-pro-preview",
+      "model_name": "google/gemini-3.1-pro-preview",
+      "overall_score": 3.8,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 5.4,
+        "B": 4.4,
+        "C": 5.2,
+        "D": 1.8,
+        "E": 2.2
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.88,
+        "hallucination_avoidance": 0.68,
+        "localization_of_uncertainty": 0.76,
+        "response_strategy": 0.64,
+        "epistemic_tone": 0.84
+      },
+      "avg_latency": 0.0,
+      "avg_cost": 0.0,
+      "evaluated_at": "2026-03-21T21:53:48.928669"
+    },
+    {
+      "rank": 36,
       "model_id": "x-ai/grok-3-mini-beta",
       "model_name": "x-ai/grok-3-mini-beta",
       "overall_score": 3.76,
@@ -832,7 +928,7 @@
       "evaluated_at": "2025-12-24T05:46:08.705621"
     },
     {
-      "rank": 33,
+      "rank": 37,
       "model_id": "z-ai/glm-4.5",
       "model_name": "z-ai/glm-4.5",
       "overall_score": 3.76,
@@ -856,7 +952,7 @@
       "evaluated_at": "2025-12-24T17:53:13.936022"
     },
     {
-      "rank": 34,
+      "rank": 38,
       "model_id": "openai/gpt-4o",
       "model_name": "openai/gpt-4o",
       "overall_score": 3.74,
@@ -880,7 +976,7 @@
       "evaluated_at": "2025-12-24T16:22:40.557509"
     },
     {
-      "rank": 35,
+      "rank": 39,
       "model_id": "x-ai/grok-4.20-beta",
       "model_name": "x-ai/grok-4.20-beta",
       "overall_score": 3.72,
@@ -904,7 +1000,7 @@
       "evaluated_at": "2026-03-21T21:16:43.385776"
     },
     {
-      "rank": 36,
+      "rank": 40,
       "model_id": "deepseek/deepseek-chat-v3.1",
       "model_name": "deepseek/deepseek-chat-v3.1",
       "overall_score": 3.68,
@@ -928,31 +1024,7 @@
       "evaluated_at": "2025-12-24T06:16:52.550536"
     },
     {
-      "rank": 37,
-      "model_id": "google/gemini-3.1-pro-preview",
-      "model_name": "google/gemini-3.1-pro-preview",
-      "overall_score": 3.68,
-      "percentile": 50.0,
-      "track_scores": {
-        "A": 4.4,
-        "B": 3.8,
-        "C": 5.6,
-        "D": 2.0,
-        "E": 2.6
-      },
-      "axis_scores": {
-        "ambiguity_detection": 0.84,
-        "hallucination_avoidance": 0.72,
-        "localization_of_uncertainty": 0.72,
-        "response_strategy": 0.56,
-        "epistemic_tone": 0.84
-      },
-      "avg_latency": 0.0,
-      "avg_cost": 0.0,
-      "evaluated_at": "2026-03-21T21:12:42.089868"
-    },
-    {
-      "rank": 38,
+      "rank": 41,
       "model_id": "google/gemini-2.5-pro-preview",
       "model_name": "google/gemini-2.5-pro-preview",
       "overall_score": 3.64,
@@ -976,7 +1048,7 @@
       "evaluated_at": "2025-12-24T05:00:03.527893"
     },
     {
-      "rank": 39,
+      "rank": 42,
       "model_id": "deepseek/deepseek-r1",
       "model_name": "deepseek/deepseek-r1",
       "overall_score": 3.64,
@@ -1000,7 +1072,31 @@
       "evaluated_at": "2026-03-21T21:23:41.751685"
     },
     {
-      "rank": 40,
+      "rank": 43,
+      "model_id": "z-ai/glm-4.6",
+      "model_name": "z-ai/glm-4.6",
+      "overall_score": 3.64,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 5.4,
+        "B": 3.8,
+        "C": 4.8,
+        "D": 1.4,
+        "E": 2.8
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.76,
+        "hallucination_avoidance": 0.72,
+        "localization_of_uncertainty": 0.56,
+        "response_strategy": 0.68,
+        "epistemic_tone": 0.92
+      },
+      "avg_latency": 0.0,
+      "avg_cost": 0.0,
+      "evaluated_at": "2026-03-21T21:54:10.423981"
+    },
+    {
+      "rank": 44,
       "model_id": "google/gemini-2.5-flash",
       "model_name": "google/gemini-2.5-flash",
       "overall_score": 3.6,
@@ -1024,7 +1120,7 @@
       "evaluated_at": "2025-12-24T05:08:31.170861"
     },
     {
-      "rank": 41,
+      "rank": 45,
       "model_id": "moonshotai/kimi-k2-thinking",
       "model_name": "moonshotai/kimi-k2-thinking",
       "overall_score": 3.6,
@@ -1048,31 +1144,31 @@
       "evaluated_at": "2025-12-24T07:56:10.870393"
     },
     {
-      "rank": 42,
+      "rank": 46,
       "model_id": "google/gemini-3.1-flash-lite-preview",
       "model_name": "google/gemini-3.1-flash-lite-preview",
-      "overall_score": 3.52,
+      "overall_score": 3.48,
       "percentile": 50.0,
       "track_scores": {
-        "A": 5.6,
-        "B": 3.2,
+        "A": 5.2,
+        "B": 3.4,
         "C": 5.4,
         "D": 1.8,
         "E": 1.6
       },
       "axis_scores": {
         "ambiguity_detection": 0.6,
-        "hallucination_avoidance": 0.72,
+        "hallucination_avoidance": 0.68,
         "localization_of_uncertainty": 0.68,
         "response_strategy": 0.72,
         "epistemic_tone": 0.8
       },
       "avg_latency": 0.0,
       "avg_cost": 0.0,
-      "evaluated_at": "2026-03-21T21:13:26.466052"
+      "evaluated_at": "2026-03-21T22:00:31.642610"
     },
     {
-      "rank": 43,
+      "rank": 47,
       "model_id": "google/gemini-2.5-pro",
       "model_name": "google/gemini-2.5-pro",
       "overall_score": 3.48,
@@ -1096,7 +1192,7 @@
       "evaluated_at": "2026-03-21T21:37:14.571431"
     },
     {
-      "rank": 44,
+      "rank": 48,
       "model_id": "openai/gpt-5-nano",
       "model_name": "openai/gpt-5-nano",
       "overall_score": 3.36,
@@ -1120,7 +1216,7 @@
       "evaluated_at": "2025-12-24T02:44:34.907375"
     },
     {
-      "rank": 45,
+      "rank": 49,
       "model_id": "openai/gpt-oss-120b",
       "model_name": "openai/gpt-oss-120b",
       "overall_score": 3.24,
@@ -1144,7 +1240,7 @@
       "evaluated_at": "2025-12-24T03:30:53.567317"
     },
     {
-      "rank": 46,
+      "rank": 50,
       "model_id": "meta-llama/llama-4-scout",
       "model_name": "meta-llama/llama-4-scout",
       "overall_score": 3.2,
@@ -1168,7 +1264,7 @@
       "evaluated_at": "2026-03-21T21:45:45.528721"
     },
     {
-      "rank": 47,
+      "rank": 51,
       "model_id": "qwen/qwen3-235b-a22b-thinking-2507",
       "model_name": "qwen/qwen3-235b-a22b-thinking-2507",
       "overall_score": 3.12,
@@ -1192,7 +1288,7 @@
       "evaluated_at": "2025-12-24T07:23:04.712531"
     },
     {
-      "rank": 48,
+      "rank": 52,
       "model_id": "z-ai/glm-5-turbo-20260315",
       "model_name": "z-ai/glm-5-turbo-20260315",
       "overall_score": 3.12,
@@ -1216,7 +1312,7 @@
       "evaluated_at": "2026-03-21T21:36:16.934846"
     },
     {
-      "rank": 49,
+      "rank": 53,
       "model_id": "x-ai/grok-4.1-fast",
       "model_name": "x-ai/grok-4.1-fast",
       "overall_score": 3.08,
@@ -1240,7 +1336,7 @@
       "evaluated_at": "2025-12-24T05:35:32.308164"
     },
     {
-      "rank": 50,
+      "rank": 54,
       "model_id": "mistralai/mistral-large-2512",
       "model_name": "mistralai/mistral-large-2512",
       "overall_score": 3.08,
@@ -1264,7 +1360,7 @@
       "evaluated_at": "2026-03-21T21:44:01.075985"
     },
     {
-      "rank": 51,
+      "rank": 55,
       "model_id": "z-ai/glm-4.5v",
       "model_name": "z-ai/glm-4.5v",
       "overall_score": 3.04,
@@ -1288,7 +1384,31 @@
       "evaluated_at": "2025-12-24T08:39:33.772796"
     },
     {
-      "rank": 52,
+      "rank": 56,
+      "model_id": "z-ai/glm-4.6v",
+      "model_name": "z-ai/glm-4.6v",
+      "overall_score": 3.04,
+      "percentile": 50.0,
+      "track_scores": {
+        "A": 4.4,
+        "B": 2.2,
+        "C": 4.4,
+        "D": 2.4,
+        "E": 1.8
+      },
+      "axis_scores": {
+        "ambiguity_detection": 0.64,
+        "hallucination_avoidance": 0.72,
+        "localization_of_uncertainty": 0.44,
+        "response_strategy": 0.44,
+        "epistemic_tone": 0.8
+      },
+      "avg_latency": 0.0,
+      "avg_cost": 0.0,
+      "evaluated_at": "2026-03-21T21:57:38.810683"
+    },
+    {
+      "rank": 57,
       "model_id": "openai/gpt-oss-20b",
       "model_name": "openai/gpt-oss-20b",
       "overall_score": 2.84,
@@ -1312,7 +1432,7 @@
       "evaluated_at": "2025-12-24T03:41:17.208712"
     },
     {
-      "rank": 53,
+      "rank": 58,
       "model_id": "qwen/qwen3-32b",
       "model_name": "qwen/qwen3-32b",
       "overall_score": 2.84,
@@ -1336,7 +1456,7 @@
       "evaluated_at": "2025-12-24T07:39:18.163509"
     },
     {
-      "rank": 54,
+      "rank": 59,
       "model_id": "mistralai/mistral-small-2603",
       "model_name": "mistralai/mistral-small-2603",
       "overall_score": 2.8,
