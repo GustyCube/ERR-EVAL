@@ -19,6 +19,13 @@
 </head>
 
 <body>
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+        <span class="promo-text">Your AI's memory shouldn't be a flat text file. <strong>Membrane</strong> lets agents actually learn and revise what they know — outperforms RAG and OpenClaw's memory system out of the box.</span>
+        <a href="https://github.com/GustyCube/membrane" target="_blank" class="promo-link">Check it out →</a>
+        <button class="promo-close" aria-label="Dismiss banner">&times;</button>
+    </div>
+
     <!-- Ambient Background Effects -->
     <div class="noise-overlay"></div>
     <div class="erreval-haze"></div>
@@ -249,6 +256,29 @@
     </footer>
 
     <script src="js/app.js"></script>
+    <script>
+        (() => {
+            const banner = document.querySelector('.promo-banner');
+            const close = document.querySelector('.promo-close');
+            function syncBannerHeight() {
+                const h = banner.offsetHeight;
+                document.documentElement.style.setProperty('--banner-height', h + 'px');
+            }
+            if (localStorage.getItem('promo-dismissed')) {
+                banner.classList.add('hidden');
+            } else {
+                document.body.classList.add('has-banner');
+                syncBannerHeight();
+                window.addEventListener('resize', syncBannerHeight);
+            }
+            close.addEventListener('click', () => {
+                banner.classList.add('hidden');
+                document.body.classList.remove('has-banner');
+                localStorage.setItem('promo-dismissed', '1');
+                window.removeEventListener('resize', syncBannerHeight);
+            });
+        })();
+    </script>
 </body>
 
 </html>

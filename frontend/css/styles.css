@@ -39,6 +39,74 @@
     --border-bright: #cccccc;
 }
 
+/* PROMO BANNER */
+.promo-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    padding: 0.6rem 1.5rem;
+    background: var(--accent-signal);
+    color: #050505;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+}
+
+.promo-banner.hidden {
+    display: none;
+}
+
+.promo-text {
+    flex: 0 1 auto;
+}
+
+.promo-text strong {
+    font-weight: 700;
+}
+
+.promo-link {
+    flex-shrink: 0;
+    color: #050505;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+}
+
+.promo-link:hover {
+    opacity: 0.7;
+}
+
+.promo-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #050505;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.3rem;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.promo-close:hover {
+    opacity: 1;
+}
+
+body.has-banner {
+    padding-top: var(--banner-height, 2.2rem);
+}
+
+body.has-banner .site-header {
+    top: var(--banner-height, 2.2rem);
+}
+
 /* RESET & BASE */
 *,
 *::before,
