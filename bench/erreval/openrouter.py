@@ -79,7 +79,7 @@ class OpenRouterClient:
                     response.raise_for_status()
                     data = response.json()
                 
-                content = data["choices"][0]["message"]["content"]
+                content = data["choices"][0]["message"]["content"] or ""
                 gen_id = data.get("id", "")
                 return content, gen_id
                 

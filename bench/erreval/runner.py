@@ -170,21 +170,27 @@ class ErrevalRunner:
             for track_items in by_track.values():
                 items.extend(track_items[:per_track])
         
-        results = []
+        results: list[ItemResult] = [None] * len(items)  # type: ignore
         total = len(items)
-        
-        for i, item in enumerate(items):
-            if progress_callback:
-                progress_callback(i + 1, total)
-            
-            result = await self.evaluate_item(
-                item=item,
-                model_id=model_id,
-                seed=seed,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
-            results.append(result)
+        completed = 0
+        sem = asyncio.Semaphore(10)  # Up to 10 concurrent item evaluations
+
+        async def eval_item(idx: int, item: CanonicalItem):
+            nonlocal completed
+            async with sem:
+                result = await self.evaluate_item(
+                    item=item,
+                    model_id=model_id,
+                    seed=seed,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
+                results[idx] = result
+                completed += 1
+                if progress_callback:
+                    progress_callback(completed, total)
+
+        await asyncio.gather(*(eval_item(i, item) for i, item in enumerate(items)))
         
         # Build evaluation run
         from .scorer import compute_track_summaries, compute_overall_score, compute_failure_profile
